@@ -9,6 +9,7 @@ class EmployeeModel
         $this->conn = $conn;
     }
 
+//===============================================================================================================================================
 
     //insert the employee
     public function insertEmployee($name, $email, $role, $phone, $address, $qualification, $uname, $pass, $DOB)
@@ -74,6 +75,8 @@ class EmployeeModel
         return $response;
     }
 
+//===============================================================================================================================================
+
     //view Employee
     public function viewEmployee()
     {
@@ -102,5 +105,7 @@ class EmployeeModel
 
         return $response;
     }
+
+//===============================================================================================================================================    
 }
 ?>

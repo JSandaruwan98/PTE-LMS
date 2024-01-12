@@ -142,12 +142,14 @@
           var dataToSend = {
               featureEnabled: featureEnabled,
               id: id,
-              task: 'employeecheckbox'
+              task: 'checkbox',
+              table: 'employee',
+              idname: 'employee_id'
           };
 
           // Send the data to the server using AJAX
           $.ajax({
-              url: 'dataHandler/api/post.php', // Replace with the URL to your server-side script
+              url: 'src/controllers/postController.php', // Replace with the URL to your server-side script
               type: 'POST',
               data: dataToSend,
               success: function(response) {
@@ -199,7 +201,7 @@
 
 </script>
 <script>
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('#exportButton').on('click', function() {
             // Make an AJAX request to the PHP script
             $.ajax({
@@ -228,7 +230,7 @@
                 }
             });
         });
-      });
+      });*/
   </script>
 </body>
 </html>
