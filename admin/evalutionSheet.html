@@ -68,7 +68,7 @@ audio::-webkit-media-controls {
   function loadData(page) {
       $.ajax({
           type: "GET",
-          url: "dataHandler/api/get.php?data_type=evaluationSheet",
+          url: "src/controllers/getController.php?data_type=evaluationSheet",
           data: { page: page, student_id : value },
           dataType: "json",
           success: function (response) {
@@ -141,7 +141,7 @@ audio::-webkit-media-controls {
                       });
 
                       const source1 = $('<source>');
-                      source1.attr('src', 'student/'+item.Q_audio); // Corrected backslashes in the path
+                      source1.attr('src', '../student/'+item.Q_audio); // Corrected backslashes in the path
                       source1.attr('type', 'audio/wav');
 
                       audioQuestion.append(source1);  
@@ -152,7 +152,7 @@ audio::-webkit-media-controls {
                       imagediv.css('display','none')
                       imagediv.addClass('pt-3')
                       const imageQuestion = $('<img>')
-                        imageQuestion.attr({'id':'imageQuestion', 'src':'student/'+item.imageFile})
+                        imageQuestion.attr({'id':'imageQuestion', 'src':'../student/'+item.imageFile})
                         imageQuestion.css({'width':'180px','height':'150px'})
                     imagediv.append(imageQuestion)
                     

@@ -49,7 +49,11 @@ if (isset($_GET['data_type'])) {
         $data = $testVideo->testVideoPresenting();
     }elseif ($data_type === 'pendingEvaluation') {
         $data = $evaluation->pendingEvaluation();
-    } 
+    }elseif ($data_type === 'evaluationHistory') {
+        $data = $evaluation->evaluationHistory();
+    }elseif ($data_type === 'evaluationSheet') {
+        $data = $evaluation->evaluationSheet();
+    }
 
 
     header('Content-Type: application/json');

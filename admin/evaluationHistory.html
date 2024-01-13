@@ -59,7 +59,7 @@
     function loadData(page) {
         $.ajax({
             type: "GET",
-            url: "dataHandler/api/get.php?data_type=evaluationHistory",
+            url: "src/controllers/getController.php?data_type=evaluationHistory",
             data: { page: page },
             dataType: "json",
             success: function (response) {
