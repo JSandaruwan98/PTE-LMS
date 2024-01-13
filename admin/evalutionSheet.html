@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+<style>
+table{
+  border-collapse: collapse;
+  
+}
+
+th {
+  padding: 7px;
+  border: 5px solid white;
+  background-color: rgba(244, 227, 227, 0.5);
+}
+#tdata{
+  padding: 7px;
+  border: 5px solid white;
+  background-color: rgba(236, 229, 229, 0.5);
+}
+audio::-webkit-media-controls {
+  background-color: #d31e1e; /* Change this to your desired color */
+  color: #180101; /* Change this to your desired text color */
+}
+
+</style>
+</head>
+<body>
+
+<table class="table" id="data-table">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col" class="text-center" style="width: 5%;"><span style="color: #666464;">S.No</th>
+      <th class="text-center" scope="col" class="text-center" style="width: 40%;"><span style="color: #666464;">Question Type</span></th>
+      <th class="text-center" scope="col" class="text-center" style="width: 15%;"><span style="color: #666464;">Solution</span></th>
+      <th class="text-center" scope="col" class="text-center" style="width: 30%;"><span style="color: #666464;">User Answer</span></th>
+      <th class="text-center" scope="col" class="text-center" style="width: 10%;"><span style="color: #666464;">Score</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+  </tbody>
+</table>
+<nav class="pgecard" aria-label="Page navigation example">
+  <ul id="pagingBatch" class="pagination">
+  </ul>
+</nav>
+
+
+<script>
+  $(document).ready(function () {
+  var itemsPerPage = 10; // Number of items to display per page
+  var currentPage = 1;  // Track the current page
+
+  const urlParams = new URLSearchParams(window.location.href);//get the parsing data
+  const fragment = window.location.hash;
+  const value = fragment.substring(1);// Remove the '#' character to get the value
+
+
+  function loadData(page) {
+      $.ajax({
+          type: "GET",
+          url: "dataHandler/api/get.php?data_type=evaluationSheet",
+          data: { page: page, student_id : value },
+          dataType: "json",
+          success: function (response) {
+              var data = response.data;
+              //console.log(response.data)
+              
+
+              // Populate the table with data
+              var tableBody = $("#data-table tbody");
+              tableBody.empty();
+              $.each(data, function (index, item) {
+                    
+                      
+                    
+                    
+                    const row = $('<tr>');
+                  
+                    //first row  
+                    const tdata1 = $('<td>').text(item.serial_number);
+                    tdata1.addClass('text-center');    
+                    row.append(tdata1);  
+
+                    //second row
+                    const tdata2 = $('<td>');
+                    tdata2.addClass('px-3'); 
+
+                    const div1 = $('<div>').text(item.type);
+                      
+
+                    const div2 = $('<div>');
+                      div2.addClass('pt-3');
+                      const span1 = $('<span>').text('Hide Question');
+                        span1.addClass('my-4 text-primary');
+                        //span1.css('color',' rgb(246, 166, 166)')
+                        span1.attr('id', 'toggle-btn')
+                    div2.append(span1);  
+                    
+                    const div3 = $('<div>')
+                      div3.attr('id', 'hidden')
+                      div3.css({'display': 'none'})
+
+                      const div31 = $('<div>').text("Question").addClass('font-weight-bold pt-3')
+                      const div32 = $('<div>').text(item.question).addClass('font-weight-bold pt-3')
+                      const div33 = $('<div>').text(item.solution).addClass('py-3')
+
+                   
+                    if(item.type == 'Read Aloud'){
+                      div3.append(div31, div32, div33);
+                    }else if(item.type == 'Repeat Sentence' || item.type == 'Answer Short Question') {
+                      div3.append(div31, div32);
+                    }else if(item.type == 'Describe image') {
+                      div3.append(div31, div32);
+                    }else if(item.type == 'Re-tell Lecture') {
+                      div3.append(div31, div32);
+                    }    
+                     
+                    
+                    const div4 = $('<div>')
+                      div4.attr('id', 'hidden')
+                      div4.css({'display': 'none'})
+                      div4.addClass('pt-3')
+                      const audioQuestion = $('<audio>');
+                      audioQuestion.attr('id', 'audioQuestion');
+                      audioQuestion.attr('controls', '');
+                      audioQuestion.css({
+                        'padding': '5px', // Corrected 'pendding' to 'padding'
+                        'border-radius': '30px',
+                        'width': '300px',
+                        'margin': '10px'
+                      });
+
+                      const source1 = $('<source>');
+                      source1.attr('src', 'student/'+item.Q_audio); // Corrected backslashes in the path
+                      source1.attr('type', 'audio/wav');
+
+                      audioQuestion.append(source1);  
+                    div4.append(audioQuestion) 
+                    
+                    const imagediv = $('<div>')
+                      imagediv.attr('id','hidden')
+                      imagediv.css('display','none')
+                      imagediv.addClass('pt-3')
+                      const imageQuestion = $('<img>')
+                        imageQuestion.attr({'id':'imageQuestion', 'src':'student/'+item.imageFile})
+                        imageQuestion.css({'width':'180px','height':'150px'})
+                    imagediv.append(imageQuestion)
+                    
+                    
+
+
+                    if(item.type == 'Read Aloud'){
+                      tdata2.append(div1, div2, div3);
+                    }else if(item.type == 'Repeat Sentence' || item.type == 'Answer Short Question') {
+                      tdata2.append(div1, div2, div4, div3);
+                    }else if(item.type == 'Describe image') {
+                      tdata2.append(div1, div2, imagediv, div3);
+                    }else if(item.type == 'Re-tell Lecture') {
+                      tdata2.append(div1, div2, div4, div3, imagediv,);
+                    }    
+                     
+                    row.append(tdata2); 
+                    
+                    //third row
+                    const tdata3 = $('<td>');
+                      tdata3.addClass('px-3');
+                      const div = $('<div>').text(item.solution)   
+                      div.addClass('text-center')
+                      tdata3.append(div)
+                      row.append(tdata3); 
+                     
+                      /*if(item.type == 'Read Aloud' || item.type == 'Repeat Sentence'){
+                        var paragraph = div;
+                        
+                        word_set = item.missed_words.split(/[ ,.:]+/).filter(Boolean)
+                                                  
+
+
+                        $.each(word_set, function(index, word) {
+                          console.log(word)
+                          var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Use word boundaries and case-insensitive matching
+                          paragraph.html(paragraph.html().replace(regex, '<span class="highlight" style="background-color: #ff7b7b;">' + word + '</span>'));
+                        });
+                      } */ 
+
+
+
+                    const tdata4 = $('<td>');
+                      tdata4.addClass('px-3');
+                      const div41 = $('<div>');
+                        const span41 = $('<span>').text("Show User Audio") 
+                        span41.attr('id', 'user-audio')
+                        //span41.css('color', 'rgb(246, 166, 166)')
+                        div41.append(span41)
+                        div41.addClass('text-primary')    
+                      const div42 = $('<div>')
+                        div42.addClass('pt-3')
+                        div42.attr('id', 'voiceRecorder') 
+                        div42.css('display', 'none')
+                        const audio = $('<audio>') 
+                          audio.attr('id', 'audio')
+                          audio.attr('controls', '')
+                          audio.css({
+                            'padding': '5px',
+                            'border-radius': '30px',
+                            'backgragound-color' : 'red',
+                            'width': '300px',
+                            'margin' : '10px'  
+                          })
+                          const source = $('<source>')
+                            source.attr('src', item.S_audio)
+                            source.attr('type', 'audio/mpeg')
+                          audio.append(source)
+                        div42.append(audio)
+                      const div_topic_of_solution = $('<div>')
+                        const spanA = $('<span>').text("AI Analysis")
+                        const spanB = $('<span>').text("Voice To Test") 
+                        div_topic_of_solution.css({
+                          'font-weight': 'bold',
+                        })  
+                          
+                         
+                        if(item.type == 'Read Aloud' || item.type == 'Repeat Sentence'){
+                          div_topic_of_solution.append(spanA)
+                        }else if(item.type == 'Describe image'|| item.type == 'Re-tell Lecture'  || item.type == 'Answer Short Question') {
+                          div_topic_of_solution.append(spanB)
+                        }   
+                        div_topic_of_solution.addClass('mt-5')
+                      const div43 = $('<div>').text(item.userAnswer)
+                        div43.attr('id', 'paragraph')
+                        div43.addClass('pt-3 pb-3')
+                      
+                      if(item.type == 'Read Aloud' || item.type == 'Repeat Sentence'){
+                        var paragraph = div43;
+                        
+                        word_set = item.additional_words.split(/[ ,.:]+/).filter(Boolean)
+                                                  
+
+
+                        $.each(word_set, function(index, word) {
+                          console.log(word)
+                          var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Use word boundaries and case-insensitive matching
+                          paragraph.html(paragraph.html().replace(regex, '<span class="highlight" style="background-color: yellow;">' + word + '</span>'));
+                        });
+                      }  
+                      
+                    tdata4.append(div41, div42, div_topic_of_solution, div43)
+                  
+
+                      
+                    row.append(tdata4)  
+                    
+                    const tdata5 = $('<td>')
+                      const div5 = $('<div>')
+                        div5.addClass('row')
+                        div5.css({'margin-inline':'10px', 'margin-bottom': '10px'})
+
+                        const label1 = $('<lable>').text('Content').css('font-size','14px')
+                        const label2 = $('<lable>').text('Pronunciation').css('font-size','14px')
+                        const label3 = $('<lable>').text('Oral fluency').css('font-size','14px')
+                        const label4 = $('<lable>').text('Remark').css('font-size','14px')
+                        const label5 = $('<lable>').text('Score').css('font-size','14px')
+                        const label6 = $('<lable>').text('Vocabulary').css('font-size','14px')  
+
+                        const input1 = $('<input>').attr({'type':'text','value':item.content}).css({'width':'120px','height':'30px'})  
+                        const input2 = $('<input>').attr({'type':'text','value':item.pronunciation}).css({'width':'120px','height':'30px'})  
+                        const input3 = $('<input>').attr({'type':'text','value':item.oral_fluency}).css({'width':'120px','height':'30px'})  
+                        const textarea = $('<textarea>').attr({'name':'','id':'','cols':'30','rows':'10'}).css({'height':'80px'})   
+                        const input5 = $('<input>').attr({'type':'text','value':item.totalScore}).css({'width':'120px','height':'30px'})  
+                        const input6 = $('<input>').attr({'type':'text','value':item.content}).css({'width':'120px','height':'30px'})  
+
+                        //div5.append(label1, input1, label2, input2, label3, input3, label4, textarea, label5, input5)
+
+                        if(item.type == 'Read Aloud' || item.type == 'Repeat Sentence' || item.type == 'Describe image' || item.type == 'Re-tell Lecture'){
+                          div5.append(label1, input1, label2, input2, label3, input3, label4, textarea, label5, input5)
+                        }else if(item.type == 'Answer Short Question') {
+                          div5.append(label6, input6, label4, textarea, label5, input5)
+                        }
+                    tdata5.append(div5)   
+                    
+                    row.append(tdata5)
+     
+
+                    row.find('td').attr('id', 'tdata')
+                    
+                  tableBody.append(row);
+              });
+
+              
+          }
+      });
+  }
+
+  // Initial data load
+  loadData(currentPage);
+
+     
+
+
+});
+
+</script>
+<script>
+
+  $('#data-table').on('click', '#user-audio', function () {
+    $(this).closest('tr').find('#voiceRecorder').toggle();
+  });
+  
+  $('#data-table').on('click', '#toggle-btn', function () {
+    $(this).closest('tr').find('#hidden').toggle();
+  });
+  
+</script>
+
+
+
+
+
+</body>
+</html>
+
+

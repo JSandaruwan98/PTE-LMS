@@ -5,12 +5,20 @@ include '../models/attendanceModel.php';
 include '../models/batchModel.php';
 include '../models/studentModel.php';
 include '../models/classModel.php';
+include '../models/transactionModel.php';
+include '../models/supportModel.php';
+include '../models/testVideoModel.php';
+include '../models/evaluationModel.php';
 
+$support = new SupportModel($conn);
 $class = new ClassModel($conn);
 $employee = new EmployeeModel($conn);
 $attendance = new Attendance($conn);
 $batch = new BatchModel($conn);
 $student = new StudentModel($conn);
+$transaction = new TransactionModel($conn);
+$testVideo = new TestVideoModel($conn);
+$evaluation = new EvaluationModel($conn);
 
 if (isset($_GET['data_type'])) {
     $data_type = $_GET['data_type'];
@@ -31,6 +39,16 @@ if (isset($_GET['data_type'])) {
         $data = $batch->viewBatch();
     }elseif ($data_type === 'getClass') {
         $data = $class->getClass();
+    }elseif ($data_type === 'transaction') {
+        $data = $transaction->transaction();
+    }elseif ($data_type === 'balance') {
+        $data = $transaction->balance();
+    }elseif ($data_type === 'support') {
+        $data = $support->support();
+    }elseif ($data_type === 'testVideoPresenting') {
+        $data = $testVideo->testVideoPresenting();
+    }elseif ($data_type === 'pendingEvaluation') {
+        $data = $evaluation->pendingEvaluation();
     } 
 
 

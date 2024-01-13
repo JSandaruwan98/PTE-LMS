@@ -5,6 +5,8 @@ include '../models/checkboxModel.php';
 include '../models/attendanceModel.php';
 include '../models/studentModel.php';
 include '../models/batchModel.php';
+include '../models/supportModel.php';
+include '../models/testVideoModel.php';
 
 
 $employee = new EmployeeModel($conn);
@@ -12,7 +14,8 @@ $checkbox = new Checkbox($conn);
 $attendance = new Attendance($conn);
 $student = new StudentModel($conn);
 $batch = new BatchModel($conn);
-
+$support = new SupportModel($conn);
+$testVideo = new TestVideoModel($conn);
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -78,6 +81,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $response = $batch->insertBatch($program, $class, $batchname, $timefrom, $timeto);
     
+    }elseif ($task === 'ticketCheck') {
+
+        $ticketId = $_POST['ticketId'];
+        $comment = $_POST['comment'];
+        $status = $_POST['status'];
+        $rating = $_POST['rating'];
+
+        $response = $support->ticketCheck($ticketId, $comment, $status, $rating);
+        
+    }elseif ($task === 'testVideoAssigning') {
+        if (isset($_POST['test']) && is_array($_POST['test'])) {
+            $batchId = $_POST['batchId'];
+            $table = $_POST['table'];
+            $itemId = $_POST['itemId'];
+            $item = $_POST['item'];
+            try {
+                $conn->autocommit(false); // Start a transaction
+                
+                foreach ($_POST['test'] as $testId => $isPresent) {
+                    // Sanitize inputs and perform error checking as needed
+                    $test1Id = intval($testId);
+                    $isPresent = intval($isPresent);
+    
+                    $response = $testVideo->testVideoAssigning($batchId, $test1Id, $isPresent, $table, $itemId, $item);
+                }
+    
+                 // Commit the transaction
+            } catch (Exception $e) {
+                $conn->rollback();// Rollback the transaction in case of an error
+            } finally {
+                $conn->autocommit(true);// Restore autocommit mode
+            }
+        }
+        
+    }elseif ($task === 'removeTheAssigning') {
+
+        $batchId = $_POST['batchId'];
+        $testId = $_POST['testId'];
+
+        $response = $testVideo->removeTheAssigning($batchId, $testId);
+        
     } 
 
 }
