@@ -12,6 +12,10 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="css/style_for_mycourse_dropdown.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/custome.css">
 
     <script>
       $(document).ready(function () {
@@ -48,8 +52,11 @@
       $('#employeeAttendance').click(function(){
            $('#main').load('employeeAttendance.html');
       });
-      $('#ticket').click(function(){
-           $('#main').load('support.html');
+      $('#practiceExamBoard').click(function(){
+           $('#sub-main').load('practiceExamBoard.html');
+      });
+      $('#newSection').click(function(){
+           $('#sub-main').load('newSection.html');
       });
       });
     </script>
@@ -86,9 +93,9 @@
                   <div class="row">
                       <div class="col">
                         <h2>Read Aloud</h2>
-                        <ul>
-                          <li>Read Aloud <span style="color: red; font-size: 10px;">Ai Score<span></li>
-                          <li>Repeat Sentence <span style="color: red; font-size: 10px;">Ai Score<span></li>
+                        <ul id="examList">
+                          <li><a id="practiceExamBoard" href="#">Read Aloud <span style="color: red; font-size: 10px;">Ai Score</span></a></li>
+                          <li><a id="newSection" href="#">Repeat Sentence <span style="color: red; font-size: 10px;">Ai Score<span></a></li>
                           <li>Describe Image <span style="color: red; font-size: 10px;">Ai Score<span></li>
                           <li>Re-tell Lecture <span style="color: red; font-size: 10px;">Ai Score<span></li>
                           <li>Answer Short Question <span style="color: red; font-size: 10px;">Ai Score<span></li>
@@ -186,6 +193,9 @@
   
   </div>
   <div id="main">
+    <h1></h1>
+  </div>
+  <div id="sub-main" class="mx-4" style="margin-top: 80px;">
     <h1></h1>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -416,6 +426,10 @@
           if(!$(event.target).closest(".dropdown-ptepractice").length){
               $(".dropdown-content-ptepractice").hide();
           }
+      });
+
+      $("#examList").click(function(){
+          $(".dropdown-content-ptepractice").hide();
       });
   });
 </script>

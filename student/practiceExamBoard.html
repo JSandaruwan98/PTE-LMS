@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/style_for_mycourse_dropdown.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/custome.css">
+
+    <style>
+        #timer {
+            font-size: 2em;
+            text-align: center;
+        } 
+        .sidebar{
+            display: none;
+        }
+        .profile-div{
+            display: none;
+        }
+        #main{
+            display: none;
+        }
+        
+     </style>  
+
+</head>
+<body>
+    <section>
+        <h1 class="ms-5 pb-4 " style="top: -50px; font-weight: normal;">Read Aloud</h1>
+    </section>
+    <section class="banner-area relative about-banner" id="home" style="background:url(images/img/78c8b120464e6b53b3877ad0de114ad3.jpg) right;">	
+        <div class="overlay overlay-bg" style="background-color: rgba(0, 65, 65, 0.5);"></div>
+        <div class="container">				
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    
+                </div>	
+            </div>
+        </div>
+    </section>
+    <section class="feature-area" id="block">
+        <div class="container">
+            <div class="row" >
+                <div class="col-md-12" >
+                    <div class="feature-area" id="feature-area">
+                        <div class="single-feature" id="single-feature">
+                            <div class="title" id="title" style="height: 70px;">
+                               
+                            </div>
+                            <div class="desc-wrap" style="background-color: rgb(218, 253, 253); ">
+                                <div class="row" style="margin-top: 25px;">
+                                    <div class="col-1"></div>    
+                                    <div class="col-7">
+                                        <h4 style="color: #222;" id="Question"></h4>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row" style="height: 200px;">
+                                    <div class="col-2">
+                                        <div style="color: red;">Prepair Time<div>00:00:00</div></div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div id="solution" style="text-align: justify; color: #222; margin-top: 25px; padding-left: 30px; padding-right: 30px;"></div>
+                                    </div>
+                                    <div class="col-3 p-4" style="height: 50px; width: 150px;">
+                                        <div data-role="controls">
+                                            <div id="timer">00:00:00</div>
+                                            <button id="recordButton" style="height: 50px; width: 50px;">Record</button>
+                                            <a  href="#" id="submit" style="font-size: 20px; font-weight:400; float: center;">Submit</a>
+                                        </div>
+                                        <div data-role="recordings"></div>
+                                    </div>
+                                </div>    
+                                <div>
+                                    <div class="row" style="margin-top: 60px;">
+                                        <div class="col-2">
+                                            <a  href="#" id="previous" style="font-size: 20px; font-weight:600; float: left;">Previuos</a>
+                                        </div>
+                                        <div class="col-8">
+                                            <a style="font-size: 20px; font-weight:600;"><span id="currentPage">1</span> /<span id="totalPages">1</span></a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a  href="#" id="next" style="font-size: 20px; font-weight:600; float: right;">Next</a>	
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         					
+            </div>
+        </div>	
+    </section>
+    <section style="margin-left: 80px; margin-top: 40px;">
+        <button type="button" class="btn btn-outline-primary" style="width: 100px; height: 35px; font-size: 15px;">Re-do</button>
+        <button type="button" class="btn btn-primary ms-4 text-white" style="width: 120px; height: 35px; font-size: 15px;">Translation</button>
+    </section>
+
+    <!--page number change jquery-->>
+    <script>
+        $(document).ready(function() {
+          var currentPage = 1;
+          var totalPages = 10; // Replace this with your actual total number of pages
+    
+          // Function to update the page content (replace this with your actual data retrieval logic)
+          function updateContent(page) {
+            $("#content").html("<p>Content for Page " + page + "</p>");
+          }
+    
+          // Function to update the pagination information
+          function updatePagination() {
+            $("#currentPage").text(currentPage);
+            $("#totalPages").text(totalPages);
+          }
+    
+          // Initial content and pagination update
+          updateContent(currentPage);
+          updatePagination();
+    
+          // Event listener for Previous button
+          $("#prevPage").on("click", function() {
+            if (currentPage > 1) {
+              currentPage--;
+              updateContent(currentPage);
+              updatePagination();
+            }
+          });
+    
+          // Event listener for Next button
+          $("#nextPage").on("click", function() {
+            if (currentPage < totalPages) {
+              currentPage++;
+              updateContent(currentPage);
+              updatePagination();
+            }
+          });
+        });
+    
+      </script>
+</body>
+</html>
