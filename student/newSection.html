@@ -209,6 +209,11 @@
                 });
             }
 
+            function updatePagination() {
+                $("#currentPage").text(currentPage);
+                $("#totalPages").text(10);
+            }
+
             fetchAndDisplayQuestions(currentPage);
 
             // Example: Next Page Button

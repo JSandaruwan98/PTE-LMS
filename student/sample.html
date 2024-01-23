@@ -3,94 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Dropdown Example</title>
+    <title>Submit Form with Success Percentage</title>
     <style>
-        /* Style for the button and dropdown */
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        .dropdown-content {
+        .form-container {
+            text-align: center;
+        }
+
+        #success-popup {
             display: none;
-            position: absolute;
-            background-color: #E3F4EE;
-            width: 1000px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Style for the button */
-        .dropbtn {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 999;
         }
     </style>
 </head>
 <body>
 
-<!-- The dropdown container -->
-<div class="dropdown">
-    <div class="dropbtn">Click me</div>
-    <!-- The dropdown content -->
-    <div class="dropdown-content">
-        <div class="row">
-            <div class="col-3">
-                <ul>
-                    <li>Kamala</li>
-                    <li>Udaola</li>
-                    <li>Aasdaa</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <ul>
-                    <li>Kamala</li>
-                    <li>Udaola</li>
-                    <li>Aasdaa</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <ul>
-                    <li>Kamala</li>
-                    <li>Udaola</li>
-                    <li>Aasdaa</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <ul>
-                    <li>Kamala</li>
-                    <li>Udaola</li>
-                    <li>Aasdaa</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="form-container">
+    <form id="myForm">
+        <!-- Your form fields go here -->
+        <label for="successPercentage">Success Percentage:</label>
+        <input type="text" id="successPercentage" name="successPercentage" readonly>
+        <br>
+        <button type="button" onclick="showSuccessPopup()">Submit</button>
+    </form>
 </div>
 
-<!-- jQuery library -->
+<div id="success-popup">
+    <p id="success-message"></p>
+    <button onclick="closeSuccessPopup()">Close</button>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<!-- jQuery script for handling the dropdown -->
 <script>
-    $(document).ready(function(){
-        $(".dropbtn").click(function(){
-            $(".dropdown-content").toggle();
-        });
+    function showSuccessPopup() {
+        // Calculate a random success percentage (you can replace this with your own logic)
+        var successPercentage = Math.floor(Math.random() * 101);
+        $('#successPercentage').val(successPercentage + '%');
+        
+        // Display the success popup
+        $('#success-popup').fadeIn();
+        $('#success-message').text('Success Percentage: ' + successPercentage + '%');
+    }
 
-        // Close the dropdown if the user clicks outside of it
-        $(document).on("click", function(event){
-            if(!$(event.target).closest(".dropdown").length){
-                $(".dropdown-content").hide();
-            }
-        });
-    });
+    function closeSuccessPopup() {
+        // Close the success popup
+        $('#success-popup').fadeOut();
+    }
 </script>
 
 </body>

@@ -28,6 +28,9 @@
         #main{
             display: none;
         }
+        #submit{
+            text-align: center;
+        }
         
      </style>  
 
@@ -52,34 +55,63 @@
                 <div class="col-md-12" >
                     <div class="feature-area" id="feature-area">
                         <div class="single-feature" id="single-feature">
-                            <div class="title" id="title" style="height: 70px;">
+                            <div class="title" id="title" style="height: 70px; text-align: justify; padding: 15px;">
                                
                             </div>
                             <div class="desc-wrap" style="background-color: rgb(218, 253, 253); ">
-                                <div class="row" style="margin-top: 25px;">
-                                    <div class="col-1"></div>    
-                                    <div class="col-7">
-                                        <h4 style="color: #222;" id="Question"></h4>
-                                    </div>
-                                    <div class="col-4"></div>
-                                </div>
-                                <div class="row" style="height: 200px;">
+                               
+                                <!--************************************************************************************************************-->
+
+                                <div class="row mt-5">
                                     <div class="col-2">
                                         <div style="color: red;">Prepair Time<div>00:00:00</div></div>
                                     </div>
-                                    <div class="col-6">
-                                        <div id="solution" style="text-align: justify; color: #222; margin-top: 25px; padding-left: 30px; padding-right: 30px;"></div>
+                                    <div class="col-7">
                                     </div>
-                                    <div class="col-3 p-4" style="height: 50px; width: 150px;">
+                                    <div class="col-2 ms-5">
                                         <div data-role="controls">
                                             <div id="timer">00:00:00</div>
-                                            <button id="recordButton" style="height: 50px; width: 50px;">Record</button>
-                                            <a  href="#" id="submit" style="font-size: 20px; font-weight:400; float: center;">Submit</a>
                                         </div>
                                         <div data-role="recordings"></div>
                                     </div>
-                                </div>    
+                                </div>  
+
+                                <!--************************************************************************************************************-->
+
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-7">
+                                        <div id="solution" style="text-align: justify; color: #222; margin-top: 25px; padding-left: 30px; padding-right: 30px;"></div>
+                                    </div>
+                                    <div class="col-2 ms-5" style="text-align: cente;">
+                                        <div data-role="controls">
+                                            <button id="recordButton" style="height: 50px; width: 50px; padding-left: 50px;">Record</button>
+                                            <a  href="#" id="submit" style="font-size: 20px; font-weight:400;">Submit</a>
+                                            <div class="spinner-border text-primary" role="status" style="display:inline-block;">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div data-role="recordings"></div>
+                                    </div>
+                                </div>
+
+                                <!--************************************************************************************************************-->
+
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-7">
+                                    </div>
+                                    <div class="col-2">
+                                        <div data-role="controls">
+                                            
+                                        </div>
+                                        <div data-role="recordings"></div>
+                                    </div>
+                                </div>      
                                 <div>
+
+                                <!--************************************************************************************************************-->
+                                   
                                     <div class="row" style="margin-top: 60px;">
                                         <div class="col-2">
                                             <a  href="#" id="previous" style="font-size: 20px; font-weight:600; float: left;">Previuos</a>
@@ -91,6 +123,9 @@
                                             <a  href="#" id="next" style="font-size: 20px; font-weight:600; float: right;">Next</a>	
                                         </div>
                                     </div>
+
+                                <!--************************************************************************************************************-->    
+
                                 </div>    
                             </div>
                         </div>
@@ -105,7 +140,7 @@
         <button type="button" class="btn btn-primary ms-4 text-white" style="width: 120px; height: 35px; font-size: 15px;">Translation</button>
     </section>
 
-    <!--page number change jquery-->>
+    <!--page number change jquery
     <script>
         $(document).ready(function() {
           var currentPage = 1;
@@ -127,7 +162,7 @@
           updatePagination();
     
           // Event listener for Previous button
-          $("#prevPage").on("click", function() {
+          $("#previous").on("click", function() {
             if (currentPage > 1) {
               currentPage--;
               updateContent(currentPage);
@@ -136,7 +171,7 @@
           });
     
           // Event listener for Next button
-          $("#nextPage").on("click", function() {
+          $("#next").on("click", function() {
             if (currentPage < totalPages) {
               currentPage++;
               updateContent(currentPage);
@@ -145,6 +180,242 @@
           });
         });
     
+      </script>-->
+       <script>
+        $(document).ready(function () {
+
+            
+
+            let timer;
+            let audioFile;
+            let Solution;
+            let KeyWords;
+            let type;
+            let question_id;
+            let seconds = 0;
+            let minutes = 0;
+            let hours = 0;
+            let mediaRecorder;
+            let audioChunks = [];
+            let isRecording = false;
+            let totalPages;
+
+            var currentPage = 1;
+            var questionsPerPage = 1; // Adjust as needed
+
+            const audioPlayer = $('#audioPlayer');
+
+
+        /***********************************************************************************************************************************************************/
+
+            //get the database data of Questions
+            
+            function fetchAndDisplayQuestions(page) {
+                $.ajax({
+                    url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${2}`,
+                    method: 'GET',
+                    success: function (data) {
+                        // Clear existing content
+                        $('#title').empty();
+                        $('#Question').empty();
+                        $('#solution').empty();
+                        totalPages = data['totalItems'].Count;
+                        // Loop through the data and append it to the containers
+                        for (var i = 0; i < data['data'].length; i++) {
+                            Solution = data['data'][i].solution;
+                            type = data['data'][i].type;
+                            KeyWords = data['data'][i].key_words
+                            question_id = data['data'][i].question_id;
+                            $('#title').append(`<h2 style="color: white;">${data['data'][i].question}</h2>`);
+                            if(data['data'][i].type == "Read Aloud"){
+                                $('#solution').append(`<p>${data['data'][i].solution}</p>`);
+                            }else if(data['data'][i].type == "Describe image"){
+                                try{
+                                    $('#solution').append(`<img src="${data['data'][i].imageFile}" style="width:450px; padding-left: 25%; height: 250px">`);
+                                }catch(error){
+                                    console.log(error.message)
+                                }
+                            }else if(data['data'][i].type == "Repeat Sentence" || data['data'][i].type == "Re-tell Lecture" || data['data'][i].type == "Answer Short Question"){
+                                $('#solution').append(`<audio controls style="padding-left: 25%">
+                                                            <source src="${data['data'][i].audio}" type="audio/mpeg">
+                                                            Your browser does not support the audio element.
+                                                        </audio>`);
+                                console.log(data['data'][i].imageFile)
+                            }
+                            
+                        }
+
+                        function updatePagination() {
+                            $("#currentPage").text(currentPage);
+                            $("#totalPages").text(totalPages);
+                        }
+
+                        updatePagination()
+                    },
+                    error: function () {
+                        alert('Error fetching data.');
+                    }
+                });
+            }
+
+            fetchAndDisplayQuestions(currentPage);
+
+            
+            // Event listener for Previous button
+            $("#previous").on("click", function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchAndDisplayQuestions(currentPage);
+                    resetTimer();
+                }
+            });
+        
+            // Event listener for Next button
+            $("#next").on("click", function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    fetchAndDisplayQuestions(currentPage);
+                    resetTimer();
+                }
+            });
+        
+        /***********************************************************************************************************************************************************/    
+
+            //Recording timer function
+
+            function startTimer() {
+                timer = setInterval(updateTimer, 1000);
+            }
+
+            function stopTimer() {
+                clearInterval(timer);
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                seconds = 0;
+                minutes = 0;
+                hours = 0;
+                updateTimerDisplay();
+            }
+
+            function updateTimer() {
+                seconds++;
+                if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours++;
+                }
+                }
+                updateTimerDisplay();
+            }
+
+            function updateTimerDisplay() {
+                const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+                $("#timer").text(formattedTime);
+            }
+
+            function pad(value) {
+                return value < 10 ? `0${value}` : value;
+            }
+
+        /***********************************************************************************************************************************************************/
+  
+            //recording button action
+            const toggleRecordingButton = $('#recordButton');
+
+            toggleRecordingButton.on('click', function () {
+                if (!isRecording) {
+                    resetTimer()
+                    startTimer()
+                    startRecording();
+                    toggleRecordingButton.text('Stop Recording');
+                } else {
+                    stopTimer()
+                    stopRecording();
+                    toggleRecordingButton.text('Start Recording');
+                }
+                isRecording = !isRecording;
+            });
+
+            /***********************************************************************************************************************************************************/
+
+            //recording start function
+            
+            function startRecording() {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function (stream) {
+                        mediaRecorder = new MediaRecorder(stream);
+
+                        mediaRecorder.ondataavailable = function (event) {
+                            if (event.data.size > 0) {
+                                audioChunks.push(event.data);
+                            }
+                        };
+
+                        mediaRecorder.onstop = function () {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                            const audioUrl = URL.createObjectURL(audioBlob);
+                            audioPlayer.attr('src', audioUrl);
+                            console.log(audioUrl)
+                            const formData = new FormData();
+                            formData.append('audio', audioBlob, 'recording.wav');
+                            formData.append('task','save_audio');
+
+                            // Send the recorded audio to the server using $.ajax or $.post
+                            saveAudio(formData);
+
+                            audioChunks = [];
+                        };
+
+                        mediaRecorder.start();
+                        toggleRecordingButton.prop('disabled', false);
+                    })
+                    .catch(function (error) {
+                        console.error('Error accessing microphone:', error);
+                    });
+            }
+
+        /***********************************************************************************************************************************************************/    
+
+            //recording stop function
+
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                }
+            }
+
+        /***********************************************************************************************************************************************************/    
+
+            //recording save function
+
+            
+            function saveAudio(formData) {
+                // Send the recorded audio data to the server using $.ajax or $.post
+                $.ajax({
+                    url: 'src/controllers/postController.php',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log('Audio saved successfully:');
+                        console.log(response.audioFile1);
+                        console.log(response.audioFile2);
+                        console.log(response)
+                        audioFile = response.audioFile1;
+                    },
+                    error: function (error) {
+                        console.error('Error saving audio:', error);
+                    }
+                });
+            }
+        })
+
+        
       </script>
 </body>
 </html>
