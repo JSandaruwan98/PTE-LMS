@@ -11,13 +11,13 @@ class ExamSpaceModel
 
 //===============================================================================================================================================    
 
-    public function questionDisplay($perPage, $offset, $test_id) {
+    public function questionDisplay($perPage, $offset, $test_id, $type) {
             
         try{
 
             // Fetch data from the database with pagination
-            $sql = "SELECT type, question, solution, imageFile, question_id, mp4File, key_words FROM question WHERE test_id = $test_id LIMIT $offset, $perPage";
-            $sqlCount = "SELECT COUNT(*) AS Count FROM question WHERE test_id = $test_id";
+            $sql = "SELECT type, question, solution, imageFile, question_id, mp4File, key_words FROM question WHERE test_id = $test_id AND type = '$type' LIMIT $offset, $perPage";
+            $sqlCount = "SELECT COUNT(*) AS Count FROM question WHERE test_id = $test_id AND type = '$type'";
             $result = $this->conn->query($sql);
             $count = $this->conn->query($sqlCount)->fetch_assoc();
 

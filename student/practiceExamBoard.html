@@ -32,19 +32,61 @@
             text-align: center;
         }
         
-     </style>  
+     </style>
+     <style>
+        
+
+        .tabs {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .tab {
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #8CDDFE;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .tab-content p {
+            margin: 0;
+        }
+
+    </style>
+     <script>
+       
+        $('#discussion').click(function(){
+            $.ajax({
+                url: 'discussion.html',
+                type: 'GET',
+                dataType: 'html',
+                success: function(response) {
+                    $('#sub-discussion').html(response);
+                },
+                error: function(error) {
+                    console.error('Error fetching HTML:', error);
+                }
+            });
+        });
+       
+      </script>
 
 </head>
 <body>
     <section>
-        <h1 class="ms-5 pb-4 " style="top: -50px; font-weight: normal;">Read Aloud</h1>
+        <h1 id="type_name" class="ms-5 pb-4 " style="top: -60px; font-weight: normal; font-size: 25px"></h1>
     </section>
-    <section class="banner-area relative about-banner" id="home" style="background:url(images/img/78c8b120464e6b53b3877ad0de114ad3.jpg) right;">	
+    <section class="banner-area relative about-banner" id="home">	
         <div class="overlay overlay-bg" style="background-color: rgba(0, 65, 65, 0.5);"></div>
         <div class="container">				
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
-                    
+                    student/images/Rectangle 114.png
                 </div>	
             </div>
         </div>
@@ -96,21 +138,6 @@
                                 </div>
 
                                 <!--************************************************************************************************************-->
-
-                                <div class="row">
-                                    <div class="col-2"></div>
-                                    <div class="col-7">
-                                    </div>
-                                    <div class="col-2">
-                                        <div data-role="controls">
-                                            
-                                        </div>
-                                        <div data-role="recordings"></div>
-                                    </div>
-                                </div>      
-                                <div>
-
-                                <!--************************************************************************************************************-->
                                    
                                     <div class="row" style="margin-top: 60px;">
                                         <div class="col-2">
@@ -135,11 +162,86 @@
             </div>
         </div>	
     </section>
-    <section style="margin-left: 80px; margin-top: 40px;">
+    <section style="margin-left: 80px; margin-top: 30px;">
         <button type="button" class="btn btn-outline-primary" style="width: 100px; height: 35px; font-size: 15px;">Re-do</button>
         <button type="button" class="btn btn-primary ms-4 text-white" style="width: 120px; height: 35px; font-size: 15px;">Translation</button>
     </section>
-
+    <section style="margin-left: 80px; margin-top: 30px;">
+        <h3 class="ms-5" style="font-size:medium;">Discussion</h3>
+    </section>
+    <section style="margin: 60px; margin-top: 30px;">
+        <div type="button" class="tab btn btn-outline-primary" data-tab="tab1" style="width: 100px; height: 35px; font-size: 15px;">Discussion</div>
+        <div type="button" class="tab btn btn-outline-primary" data-tab="tab2" style="width: 100px; height: 35px; font-size: 15px;">Board</div>
+        <div type="button" class="tab btn btn-outline-primary" data-tab="tab3" style="width: 100px; height: 35px; font-size: 15px;">Me</div>
+        <div class="tab-content" id="tab1">
+            <p>Content for Tab 3 goes here.</p>
+        </div>
+        
+        <div class="tab-content" id="tab2">
+            <div class="col-6">
+                <div class="row d-flex mt-5">
+                    <div class="col-md-12 col-lg-10 col-xl-8"><div class="card"><div class="card-body">
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                              height="60" />
+                            <div>
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <audio controls style="width: 250px; height: 40px;">
+                                    <source src="${data['data'][i].audio}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="btn btn-outline-primary fw-bold mb-1 rounded">Score Info</div>
+                            </div>
+                        </div>
+                    </div></div></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row d-flex mt-5">
+                    <div class="col-md-12 col-lg-10 col-xl-8"><div class="card"><div class="card-body">
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                              height="60" />
+                            <div>
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <audio controls style="width: 250px; height: 40px;">
+                                    <source src="${data['data'][i].audio}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="btn btn-outline-primary fw-bold mb-1 rounded">Score Info</div>
+                            </div>
+                        </div>
+                    </div></div></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="tab3">
+            <p>Content for Tab 3 goes here.</p>
+        </div>
+    </section>
+    <section id="sub-discussion" style="margin-left: 80px; margin-top: 30px;">
+        <h1></h1>
+    </section>
+    <script>
+        $(document).ready(function() {
+            // Show default tab content
+            $('#tab1').show();
+        
+            // Tab click event
+            $('.tab').click(function() {
+                // Hide all tab content
+                $('.tab-content').hide();
+        
+                // Show the selected tab content
+                var tabId = $(this).data('tab');
+                $('#' + tabId).show();
+            });
+        });
+    
+    </script>
     <!--page number change jquery
     <script>
         $(document).ready(function() {
@@ -190,7 +292,6 @@
             let audioFile;
             let Solution;
             let KeyWords;
-            let type;
             let question_id;
             let seconds = 0;
             let minutes = 0;
@@ -205,21 +306,56 @@
 
             const audioPlayer = $('#audioPlayer');
 
+            
 
+            /**const urlParams = new URLSearchParams(window.location.href);//get the parsing data
+            const fragment = window.location.hash;
+            const value = fragment.substring(1);// Remove the '#' character to get the value**/
+                    
+            var fragment = window.location.hash;
+            if (fragment.includes('type')) { var typeValue = parseInt(fragment.split('=')[1]); } 
+            else { console.log('Type parameter not found in the URL.'); }
+
+            console.log(typeValue);
+
+            if(typeValue == 1){
+                type = 'Read Aloud';
+                image = 'images/img/78c8b120464e6b53b3877ad0de114ad3.jpg';
+            }else if(typeValue == 2){
+                type = 'Repeat Sentence';
+                image = 'images/img/cta-bg.jpg';
+            }else if(typeValue == 3){
+                type = 'Describe image';
+                image = 'images/img/top-banner.jpg';
+            }else if(typeValue == 4){
+                type = 'Re-tell Lecture';
+                image = 'images/img/R.jpg';    
+            }else if(typeValue == 5){
+                type = 'Answer Short Question';
+                image = 'images/img/slider3.png';        
+            }
+
+            console.log(type);
+
+            $('#type_name').text(type);
+            $('#home').css({'background': 'url('+image+') right'})
         /***********************************************************************************************************************************************************/
 
             //get the database data of Questions
             
             function fetchAndDisplayQuestions(page) {
                 $.ajax({
-                    url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${2}`,
+                    url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${2}&type=${type}`,
                     method: 'GET',
                     success: function (data) {
                         // Clear existing content
                         $('#title').empty();
                         $('#Question').empty();
                         $('#solution').empty();
+                        console.log(data)
                         totalPages = data['totalItems'].Count;
+                        console.log(type)
+                        
                         // Loop through the data and append it to the containers
                         for (var i = 0; i < data['data'].length; i++) {
                             Solution = data['data'][i].solution;
@@ -227,15 +363,15 @@
                             KeyWords = data['data'][i].key_words
                             question_id = data['data'][i].question_id;
                             $('#title').append(`<h2 style="color: white;">${data['data'][i].question}</h2>`);
-                            if(data['data'][i].type == "Read Aloud"){
+                            if(type == "Read Aloud"){
                                 $('#solution').append(`<p>${data['data'][i].solution}</p>`);
-                            }else if(data['data'][i].type == "Describe image"){
+                            }else if(type == "Describe image"){
                                 try{
                                     $('#solution').append(`<img src="${data['data'][i].imageFile}" style="width:450px; padding-left: 25%; height: 250px">`);
                                 }catch(error){
                                     console.log(error.message)
                                 }
-                            }else if(data['data'][i].type == "Repeat Sentence" || data['data'][i].type == "Re-tell Lecture" || data['data'][i].type == "Answer Short Question"){
+                            }else if(type == "Repeat Sentence" || type == "Re-tell Lecture" || type == "Answer Short Question"){
                                 $('#solution').append(`<audio controls style="padding-left: 25%">
                                                             <source src="${data['data'][i].audio}" type="audio/mpeg">
                                                             Your browser does not support the audio element.
@@ -413,6 +549,38 @@
                     }
                 });
             }
+
+        /***********************************************************************************************************************************************************/
+        
+            $('#submit').on('click', function(){
+                console.log(type);
+                console.log(KeyWords);
+                if(type == 'Read Aloud' || type == 'Repeat Sentence'){
+                    task = 'normal_comparison'
+                }else if(type == 'Describe image' || type == 'Repeat Sentence' || type == 'Answer Short Question'){
+                    task = 'ai_analysis'
+                }
+
+                $.ajax({
+                    url:'src/controllers/postController.php',
+                    type: 'POST',
+                    data: { task : task, audioFile: audioFile, Solution: Solution, question_id: question_id, student_id: 2, key_words: KeyWords, type: type},
+                    success: function(response){
+                        if(response.success){
+                            console.log(response.message);
+                        }else{
+                            console.log(response.message);
+                            
+                        }
+                    },
+                    error: function (error) {
+                        console.log(response.message);
+                        console.log(response.comment);
+                        console.error('Error saving audio:', error); 
+                    }
+                })
+            });
+        
         })
 
         

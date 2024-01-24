@@ -14,8 +14,9 @@ if (isset($_GET['data_type'])) {
         $perPage = isset($_GET['per_page']) ? $_GET['per_page'] : 5;
         $offset = ($page - 1) * $perPage;
         $test_id = $_GET['test_id'];
+        $type = $_GET['type'];
 
-        $data = $examSpace->questionDisplay($perPage, $offset, $test_id);
+        $data = $examSpace->questionDisplay($perPage, $offset, $test_id, $type);
         //$data = 'kamal'; 
     }elseif ($data_type === 'attendance') {
         $data = $attendance->viewAttendance();
