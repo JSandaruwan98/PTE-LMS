@@ -106,9 +106,13 @@
 
                                 <div class="row mt-5">
                                     <div class="col-2">
-                                        <div style="color: red;">Prepair Time<div>00:00:00</div></div>
+                                        <div style="color: red;">Prepair Time</div>
+                                        <div id="prepair-timer" style="color: red;">00:00:00</div>
                                     </div>
                                     <div class="col-7">
+                                        <div class="progress">
+                                            <div id="myProgressBar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
                                     </div>
                                     <div class="col-2 ms-5">
                                         <div data-role="controls">
@@ -162,6 +166,15 @@
             </div>
         </div>	
     </section>
+    <section style="margin-left: 90px; margin-top: 30px;">
+        <audio controls style="width: 300px; height: 60px;">
+            <source src="${data['data'][i].audio}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+    <section style="margin-left: 80px; margin-top: 30px;">
+       <h5 style=" font-weight:300">AI Scoring and Audio Answer Download is available after submission.</h5>
+    </section>
     <section style="margin-left: 80px; margin-top: 30px;">
         <button type="button" class="btn btn-outline-primary" style="width: 100px; height: 35px; font-size: 15px;">Re-do</button>
         <button type="button" class="btn btn-primary ms-4 text-white" style="width: 120px; height: 35px; font-size: 15px;">Translation</button>
@@ -205,7 +218,7 @@
                               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
                               height="60" />
                             <div>
-                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman<span class="pe-3" style="font-size: 13px; font-weight: 300; color: black; float: right;">  25/01/2024</span></h6>
                                 <audio controls style="width: 250px; height: 40px;">
                                     <source src="${data['data'][i].audio}" type="audio/mpeg">
                                     Your browser does not support the audio element.
@@ -219,7 +232,7 @@
         </div>
         
         <div class="tab-content" id="tab3">
-            <p>Content for Tab 3 goes here.</p>
+            
         </div>
     </section>
     <section id="sub-discussion" style="margin-left: 80px; margin-top: 30px;">
@@ -242,7 +255,24 @@
         });
     
     </script>
-    <!--page number change jquery
+    <!--***********************************************************************************************************************************************************-->
+
+    <!--<script>
+        // Function to continuously increase the progress bar
+        function increaseProgressBar() {
+          var progressBar = $('#myProgressBar');
+          var currentWidth = parseInt(progressBar.css('width'), 10);
+          var newWidth = (currentWidth + 1) % 101; // Increment and loop back to 0 after reaching 100
+          progressBar.css('width', newWidth + '%');
+          progressBar.attr('aria-valuenow', newWidth);
+        }
+      
+        // Set an interval to call the function every second
+        setInterval(increaseProgressBar, 1000);
+    </script>
+
+
+    page number change jquery
     <script>
         $(document).ready(function() {
           var currentPage = 1;
@@ -285,7 +315,7 @@
       </script>-->
        <script>
         $(document).ready(function () {
-
+            
             
 
             let timer;
@@ -293,7 +323,8 @@
             let Solution;
             let KeyWords;
             let question_id;
-            let seconds = 0;
+            let seconds1 = 0;
+            let seconds2 = 35;
             let minutes = 0;
             let hours = 0;
             let mediaRecorder;
@@ -305,7 +336,10 @@
             var questionsPerPage = 1; // Adjust as needed
 
             const audioPlayer = $('#audioPlayer');
-
+            var progressBar = document.getElementById('myProgressBar');
+            stopTimer()
+            resetTimer(2)
+            
             
 
             /**const urlParams = new URLSearchParams(window.location.href);//get the parsing data
@@ -339,15 +373,59 @@
 
             $('#type_name').text(type);
             $('#home').css({'background': 'url('+image+') right'})
+
+
+        /***********************************************************************************************************************************************************/
+            
+            function discussion(){
+                $.ajax({
+                    url: 'src/controllers/getController.php?data_type=discussion&question_id=71',
+                    method: 'GET',
+                    success: function(data){
+                        console.log(data.length)
+                        $('#tab3').empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $('#tab3').append(`
+                                <div class="col-6">
+                                    <div class="row d-flex mt-5">
+                                        <div class="col-md-12 col-lg-10 col-xl-8"><div class="card"><div class="card-body">
+                                            <div class="d-flex flex-start align-items-center">
+                                                <img class="rounded-circle shadow-1-strong me-3"
+                                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                                                height="60" />
+                                                <div>
+                                                    <h6 class="fw-bold text-primary mb-1">`+data[i].name+`<span class="pe-3" style="font-size: 13px; font-weight: 300; color: black; float: right;">`+data[i].attempted_on+`</span></h6>
+                                                    <audio controls style="width: 250px; height: 40px;">
+                                                        <source src="`+data[i].mp4File+`" type="audio/mpeg">
+                                                        Your browser does not support the audio element.
+                                                    </audio>
+                                                    <div class="btn btn-outline-primary fw-bold mb-1 rounded">Score Info</div>
+                                                </div>
+                                            </div>
+                                        </div></div></div>
+                                    </div>
+                                </div>
+                            `);
+                        }
+                        
+                    },
+                    error: function(){
+                        alert('Error fetching data.');
+                    }
+                })
+            }
+
+            discussion()
         /***********************************************************************************************************************************************************/
 
             //get the database data of Questions
             
             function fetchAndDisplayQuestions(page) {
                 $.ajax({
-                    url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${2}&type=${type}`,
+                    url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${11}&type=${type}`,
                     method: 'GET',
                     success: function (data) {
+                        startTimer(2)
                         // Clear existing content
                         $('#title').empty();
                         $('#Question').empty();
@@ -402,7 +480,8 @@
                 if (currentPage > 1) {
                     currentPage--;
                     fetchAndDisplayQuestions(currentPage);
-                    resetTimer();
+                    resetTimer(1);
+                    resetTimer(2);
                 }
             });
         
@@ -411,46 +490,79 @@
                 if (currentPage < totalPages) {
                     currentPage++;
                     fetchAndDisplayQuestions(currentPage);
-                    resetTimer();
+                    resetTimer(1);
+                    resetTimer(2);
                 }
             });
         
         /***********************************************************************************************************************************************************/    
 
-            //Recording timer function
+            //timer function
+            //task has two type 1 => Answering timer 2 => prepair timer
 
-            function startTimer() {
-                timer = setInterval(updateTimer, 1000);
+            function startTimer(task) {
+                timer = setInterval(function(){updateTimer(task)}, 1000);
             }
 
             function stopTimer() {
                 clearInterval(timer);
+                console.log('timer off')
             }
 
-            function resetTimer() {
+            function resetTimer(task) { 
+                console.log('timer reset')              
                 clearInterval(timer);
-                seconds = 0;
+                if(task==1){
+                    seconds1 = 0;
+                    progressBar.style.width = 0+'%'
+                }else if(task == 2){
+                    seconds2 = 35;
+                }
                 minutes = 0;
                 hours = 0;
-                updateTimerDisplay();
+                updateTimerDisplay(task);
             }
 
-            function updateTimer() {
-                seconds++;
-                if (seconds === 60) {
-                seconds = 0;
-                minutes++;
-                if (minutes === 60) {
-                    minutes = 0;
-                    hours++;
+            function updateTimer(task) {
+                if(task==2){
+                    seconds2--;
+                    if (seconds2 === 0) {
+                        clearInterval(timer);
+                        toggleRecordingButton.click();                        
+                    }
+                }else if(task==1){
+                    //this is progress increasing
+                    var currentWidth = parseFloat(progressBar.style.width, 10);
+                    var newWidth = (currentWidth + 2.5) % 101; 
+                    progressBar.style.width = newWidth + '%';
+
+                    seconds1++;
+                    if (seconds1 === 40) {
+                        clearInterval(timer);
+                        toggleRecordingButton.click();
+                    }
+                }else if(task==3){
+                    seconds1++;
+                    if (seconds1 === 60) {
+                    seconds1 = 0;
+                    minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                    }
                 }
-                }
-                updateTimerDisplay();
+                updateTimerDisplay(task);
             }
 
-            function updateTimerDisplay() {
-                const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-                $("#timer").text(formattedTime);
+            function updateTimerDisplay(task) { 
+                if(task==1){
+                    const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds1)}`;
+                    $("#timer").text(formattedTime);
+                }else if(task==2){
+                    const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds2)}`;
+                    $("#prepair-timer").text(formattedTime);
+                }
             }
 
             function pad(value) {
@@ -464,8 +576,9 @@
 
             toggleRecordingButton.on('click', function () {
                 if (!isRecording) {
-                    resetTimer()
-                    startTimer()
+                    stopTimer()
+                    resetTimer(1)
+                    startTimer(1)
                     startRecording();
                     toggleRecordingButton.text('Stop Recording');
                 } else {
@@ -568,6 +681,7 @@
                     success: function(response){
                         if(response.success){
                             console.log(response.message);
+                            discussion()
                         }else{
                             console.log(response.message);
                             
@@ -582,6 +696,8 @@
             });
         
         })
+
+        /***********************************************************************************************************************************************************/
 
         
       </script>

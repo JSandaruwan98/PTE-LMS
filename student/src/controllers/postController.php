@@ -1,11 +1,11 @@
 <?php
 include '../config/database.php';
-include '../models/saveVideoModel.php';
+include '../models/saveAudioModel.php';
 include '../models/voiceToTestModel.php';
 include '../models/sentenceCompareModel.php';
 include '../models/answeringModel.php';
 
-$save_audio = new SaveVideoModel($conn);
+$save_audio = new SaveAudioModel($conn);
 $voice_to_test = new VoiceToTestModel();
 $sentence_compare = new SentenceCompareModel();
 $answering = new AnsweringModel($conn);

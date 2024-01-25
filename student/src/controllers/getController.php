@@ -1,9 +1,11 @@
 <?php
 include '../models/examSpaceModel.php';
 include '../config/database.php';
+include '../models/discussionModel.php';
 
 
 $examSpace = new ExamSpaceModel($conn);
+$discussion = new DiscussionModel($conn);
 
 
 if (isset($_GET['data_type'])) {
@@ -17,9 +19,13 @@ if (isset($_GET['data_type'])) {
         $type = $_GET['type'];
 
         $data = $examSpace->questionDisplay($perPage, $offset, $test_id, $type);
-        //$data = 'kamal'; 
-    }elseif ($data_type === 'attendance') {
-        $data = $attendance->viewAttendance();
+
+    }elseif ($data_type === 'discussion') {
+
+        $question_id = $_GET['question_id'];
+
+        $data = $discussion->discussion($question_id);
+
     }
 
 
