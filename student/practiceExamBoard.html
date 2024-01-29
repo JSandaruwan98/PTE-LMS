@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/custome.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <style>
         #timer {
@@ -31,10 +32,6 @@
         #submit{
             text-align: center;
         }
-        
-     </style>
-     <style>
-        
 
         .tabs {
             display: flex;
@@ -57,7 +54,50 @@
             margin: 0;
         }
 
-    </style>
+        .b1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .overlay-content-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .content-popup {
+            position: fixed;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 500px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+    
+        
+     </style>
+     
      <script>
        
         $('#discussion').click(function(){
@@ -189,6 +229,8 @@
         <div class="tab-content" id="tab1">
             <p>Content for Tab 3 goes here.</p>
         </div>
+
+        <!--*****************************************************************************************************************************************************-->
         
         <div class="tab-content" id="tab2">
             <div class="col-6">
@@ -223,22 +265,42 @@
                                     <source src="${data['data'][i].audio}" type="audio/mpeg">
                                     Your browser does not support the audio element.
                                 </audio>
-                                <div class="btn btn-outline-primary fw-bold mb-1 rounded">Score Info</div>
+                                <div id="score" class="btn btn-outline-primary fw-bold mb-1 rounded">Score Info</div>
                             </div>
                         </div>
                     </div></div></div>
                 </div>
             </div>
         </div>
+
+        <!--*****************************************************************************************************************************************************-->
         
         <div class="tab-content" id="tab3">
             
         </div>
+
+        <!--*****************************************************************************************************************************************************-->
+
+        <div class="b1">
+            <div class="overlay-content-popup" id="overlay-content-popup"></div>
+            <div id="cb" class="content-popup">
+                <!-- Your content goes here -->
+                <h2>Hello, Centered Box!</h2>
+                <p>This is some content in the center of the page.</p>
+            </div>
+        </div>
+
     </section>
     <section id="sub-discussion" style="margin-left: 80px; margin-top: 30px;">
         <h1></h1>
     </section>
     <script>
+        
+     </script>
+    <script>
+
+        /***********************************************************************************************************************************************************/
+
         $(document).ready(function() {
             // Show default tab content
             $('#tab1').show();
@@ -253,7 +315,31 @@
                 $('#' + tabId).show();
             });
         });
-    
+
+        /***********************************************************************************************************************************************************/
+
+        $(document).ready(function() {
+            $('#score').on("click", function(e){
+                e.preventDefault();
+                $('#overlay-content-popup').toggle();
+                $('#cb').toggle();
+            });
+
+            $('#close-btn').on("click", function(){
+                $('#overlay-content-popup').hide();
+                $('#cb').hide();
+            });
+
+            $(document).on("click", function(event){
+                event.preventDefault();
+                if(!$(event.target).closest('#score').length && !$(event.target).closest('#cb').length) {
+                    $('#overlay-content-popup').hide();
+                    $('#cb').hide();
+                }
+            });
+        });
+
+        /***********************************************************************************************************************************************************/
     </script>
     <!--***********************************************************************************************************************************************************-->
 
@@ -337,8 +423,7 @@
 
             const audioPlayer = $('#audioPlayer');
             var progressBar = document.getElementById('myProgressBar');
-            stopTimer()
-            resetTimer(2)
+            
             
             
 
@@ -471,7 +556,8 @@
                     }
                 });
             }
-
+            
+            
             fetchAndDisplayQuestions(currentPage);
 
             
