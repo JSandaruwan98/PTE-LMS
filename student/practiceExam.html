@@ -24,18 +24,20 @@
             </div>
         </div>
     </section>
-    <!--Section 03 (This section is used for recording and submiting answers)-->
+    <!--Section 03 (this section using )-->
     <section class="feature-area" id="block">
         <div class="container">
             <div class="row" >
                 <div class="col-md-12" >
                     <div class="feature-area" id="feature-area">
                         <div class="single-feature" id="single-feature">
-                            <div class="title" id="title" style="height: 70px; text-align: justify; padding: 15px;"></div>
+                            <div class="title" id="title" style="height: 70px; text-align: justify; padding: 15px;">
+                               
+                            </div>
                             <div class="desc-wrap" style="background-color: rgb(218, 253, 253); ">
                                
                                 <!--************************************************************************************************************-->
-                                <!--timer row-->
+
                                 <div class="row">
                                     <div class="col-2">
                                         <div style="color: red;">Prepair Time</div>
@@ -55,7 +57,7 @@
                                 </div>  
 
                                 <!--************************************************************************************************************-->
-                                <!--question and recording row-->
+
                                 <div class="row">
                                     <div class="col-2"></div>
                                     <div class="col-7">
@@ -74,62 +76,50 @@
                                 </div>
 
                                 <!--************************************************************************************************************-->
-                                <!--button row-->      
-                                <div class="row" style="margin-top: 60px;">
-                                    <div class="col-2">
-                                        <a  href="#" id="previous" style="font-size: 20px; font-weight:600; float: left;">Previuos</a>
+                                   
+                                    <div class="row" style="margin-top: 60px;">
+                                        <div class="col-2">
+                                            <a  href="#" id="previous" style="font-size: 20px; font-weight:600; float: left;">Previuos</a>
+                                        </div>
+                                        <div class="col-8">
+                                            <a style="font-size: 20px; font-weight:600;"><span id="currentPage">1</span> /<span id="totalPages">1</span></a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a  href="#" id="next" style="font-size: 20px; font-weight:600; float: right;">Next</a>	
+                                        </div>
                                     </div>
-                                    <div class="col-8">
-                                        <a style="font-size: 20px; font-weight:600;"><span id="currentPage">1</span> /<span id="totalPages">1</span></a>
-                                    </div>
-                                    <div class="col-2">
-                                        <a  href="#" id="next" style="font-size: 20px; font-weight:600; float: right;">Next</a>	
-                                    </div>
-                                </div>
 
                                 <!--************************************************************************************************************-->    
 
-                            </div>    
+                                </div>    
                             </div>
                         </div>
                     </div>
                 </div>
-         	 </div>
+         					
+            </div>
         </div>	
     </section>
-
-    <!--Section 04-->
     <section style="margin-left: 90px; margin-top: 30px;">
         <audio controls style="width: 300px; height: 60px;">
             <source src="${data['data'][i].audio}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     </section>
-
-    <!--Section 05-->
     <section style="margin-left: 80px; margin-top: 30px;">
        <h5 style=" font-weight:300">AI Scoring and Audio Answer Download is available after submission.</h5>
     </section>
-
-    <!--Section 06-->
     <section style="margin-left: 80px; margin-top: 30px;">
         <button type="button" class="btn btn-outline-primary" style="width: 100px; height: 35px; font-size: 15px;">Re-do</button>
         <button type="button" class="btn btn-primary ms-4 text-white" style="width: 120px; height: 35px; font-size: 15px;">Translation</button>
     </section>
-
-    <!--Section 07-->
     <section style="margin-left: 80px; margin-top: 30px;">
         <h3 class="ms-5" style="font-size:medium;">Discussion</h3>
     </section>
-
-    <!--Section 08-->
     <section style="margin: 60px; margin-top: 30px;">
         <div type="button" class="tab btn btn-outline-primary" data-tab="tab1" style="width: 100px; height: 35px; font-size: 15px;">Discussion</div>
         <div type="button" class="tab btn btn-outline-primary" data-tab="tab2" style="width: 100px; height: 35px; font-size: 15px;">Board</div>
         <div type="button" class="tab btn btn-outline-primary" data-tab="tab3" style="width: 100px; height: 35px; font-size: 15px;">Me</div>
-        
-        <!--*****************************************************************************************************************************************************-->
-        
         <div class="tab-content" id="tab1">
             <p>Content for Tab 3 goes here.</p>
         </div>
@@ -137,25 +127,42 @@
         <!--*****************************************************************************************************************************************************-->
         
         <div class="tab-content" id="tab2">
-            <div class="row d-flex mb-4">
-                <div class="col-md-7 col-xl-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-start align-items-center">
-                                <img class="rounded-circle shadow-1-strong me-3"
-                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
-                                height="60" />
-                                <div>
-                                    <h6 class="fw-bold text-primary">Lily Coleman</h6>
-                                    <audio controls style="width: 330px; height: 40px;">
-                                        <source src="${data['data'][i].audio}" type="audio/mpeg">
-                                        Your browser does not support the audio element.
-                                    </audio><br>
-                                    <div class="btn btn-outline-primary fw-bold rounded"  style="font-size: 10px;">Score Info</div>
-                                </div>
-                            </div>   
+            <div class="col-6">
+                <div class="row d-flex">
+                    <div class="col-md-12 col-lg-10 col-xl-8"><div class="card"><div class="card-body">
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                              height="60" />
+                            <div>
+                                <h6 class="fw-bold text-primary" >Lily Coleman</h6>
+                                <audio controls style="width: 250px; height: 40px;">
+                                    <source src="${data['data'][i].audio}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="btn btn-outline-primary fw-bold rounded"  style="font-size: 10px;">Score Info</div>
+                            </div>
                         </div>
-                    </div>
+                    </div></div></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row d-flex mt-4">
+                    <div class="col-md-12 col-lg-10 col-xl-8"><div class="card"><div class="card-body">
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                              height="60" />
+                            <div   style="font-size: 10px;">
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman<span class="pe-3" style="font-size: 13px; font-weight: 300; color: black; float: right;">  25/01/2024</span></h6>
+                                <audio controls style="width: 250px; height: 40px;">
+                                    <source src="${data['data'][i].audio}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div" id="score" class="btn btn-outline-primary fw-bold mb-1 rounded"   style="font-size: 10px;">Score Info</div>
+                            </div>
+                        </div>
+                    </div></div></div>
                 </div>
             </div>
         </div>
@@ -169,109 +176,99 @@
         <!--*****************************************************************************************************************************************************-->
 
         <div class="b1">
-            <div class="overlay-content-popup" id="overlay-content-popup">
-                <div id="cb" class="content-popup">
-                    <div class="container">
-                        <div class="row">
-                            <div style="text-align: left; font-weight: 300;">Score Info</div>
-                        </div>
-                        
-                        <div class="row mx-3">
-                            <div class="col-5 py-3">
-                                <!--using progress bar display for the total score-->
-                                <div class="row px-2">
-                                    <div class="p-2">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <div style="font-weight: 300;">Total</div>
-                                    </div>     
-                                </div>
-
-                                <!--content, pronounciation and fluency score-->
-                                <div class="row px-2">
-                                    <div class="col-4 p-1">
-                                        <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Content</span><br><span style="color: green;"><span id="content-marks"></span>/5</span>
-                                        </div>
+        <div class="overlay-content-popup" id="overlay-content-popup">
+            <div id="cb" class="content-popup">
+                <div class="container">
+                    <div class="row">
+                        <div style="text-align: left; font-weight: 300;">Score Info</div>
+                    </div>
+                    <div class="row mx-3">
+                        <div class="col-5 py-3">
+                            <div class="row px-2">
+                                <div class="p-2">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <div class="col-4 p-1">
-                                        <div  class="p-2" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Pronoun</span><br><span style="color: rgb(255, 162, 0);"><span id="pronoun-marks"></span>/5</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 p-1">
-                                        <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Fluency</span><br><span style="color: purple;"><span id="fluency-marks"></span>/5</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row px-2">
-                                    <div class="p-2"></div><h4 class="h6" style="text-align: left;">Skill Analysis</h4>
-                                    <p class="lh-sm" style="font-weight: 500; font-size: 10px; text-align:justify">The following scores show how you have performed in different aspects as compared to other users. These scores can be used to analyse how you can improve in this question, but they are not directly related to the PTE scores.</p>
-                                </div>
-
-                                <!--Each presentation is described using a progress bar of pronunciation, fluency, stress and speed-->
-                                <div class="row">
+                                    <div style="font-weight: 300;">Total</div>
+                                </div>     
+                            </div>
+                            <div class="row px-2">
+                                <div class="col-4 p-1">
                                     <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="pronoun-progress" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Pronounciation Accuracy</span> <span id="pronoun-precentage"  class="text-primary"></span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="fluent-progress" class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Fluent</span> <span id="fluent-precentage" class="text-primary"></span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="stress-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Stress</span> <span class="text-primary">0%</span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="speed-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Speed</span> <span class="text-primary">0%</span></h4>
-                                        </div>
+                                        <span>Content</span><br><span style="color: green;"><span id="content-marks"></span>/5</span>
+                                    </div>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div  class="p-2" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                        <span>Pronoun</span><br><span style="color: rgb(255, 162, 0);"><span id="pronoun-marks"></span>/5</span>
+                                    </div>
+                                </div>
+                                <div class="col-4 p-1">
+                                    <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                        <span>Fluency</span><br><span style="color: purple;"><span id="fluency-marks"></span>/5</span>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="col-7 ps-5">
-                                <!--student answer audio-->
-                                <div class="row">
-                                    <div class="py-4" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                        <audio id="user-answer-recording" controls style="width: 300px;">
-                                        </audio>
+                            <div class="row px-2">
+                                <div class="p-2"></div><h4 class="h6" style="text-align: left;">Skill Analysis</h4>
+                                <p class="lh-sm" style="font-weight: 500; font-size: 10px; text-align:justify">The following scores show how you have performed in different aspects as compared to other users. These scores can be used to analyse how you can improve in this question, but they are not directly related to the PTE scores.</p>
+                            </div>
+                            <div class="row">
+                                <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                    <div>
+                                        <div class="progress mt-1">
+                                            <div id="pronoun-progress" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Pronounciation Accuracy</span> <span id="pronoun-precentage"  class="text-primary"></span></h4>
+                                    </div>
+                                    <div>
+                                        <div class="progress mt-1">
+                                            <div id="fluent-progress" class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Fluent</span> <span id="fluent-precentage" class="text-primary"></span></h4>
+                                    </div>
+                                    <div>
+                                        <div class="progress mt-1">
+                                            <div id="stress-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Stress</span> <span class="text-primary">0%</span></h4>
+                                    </div>
+                                    <div>
+                                        <div class="progress mt-1">
+                                            <div id="speed-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Speed</span> <span class="text-primary">0%</span></h4>
                                     </div>
                                 </div>
-
-                                <!--Missed words of given question-->
-                                <div class="row px-2">
-                                    <div class="p-2"></div><h4 class="h6" style="text-align: left;">Content</h4>
-                                    <p style="font-weight: 300; font-size: 14px; text-align:justify">
-                                        <span>Missed words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span></span>
-                                        <span style="margin-left: 40px;">Aditional words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span>
-                                    </p>
+                                    
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="col-7 ps-5">
+                            <div class="row">
+                                <div class="py-4" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                    <audio id="user-answer-recording" controls style="width: 300px;">
+                                    </audio>
                                 </div>
-                                <div class="row">
-                                    <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                        <p id="question-solution"  style="font-weight: 500; font-size: 15px; text-align:justify"></p>
-                                    </div>
+                            </div>
+                            <div class="row px-2">
+                                <div class="p-2"></div><h4 class="h6" style="text-align: left;">Content</h4>
+                                <p style="font-weight: 300; font-size: 14px; text-align:justify">
+                                    <span>Missed words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span></span>
+                                    <span style="margin-left: 40px;">Aditional words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                                    <p id="question-solution"  style="font-weight: 500; font-size: 15px; text-align:justify"></p>
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                </div>
+                    </div>
+                </div> 
             </div>
+        </div>
         </div>
 
     </section>
@@ -285,8 +282,13 @@
     <script src="js/ajaxManager.js"></script>
     <script src="js/fetchAndDisplay.js"></script>    
 <!--***********************************************************************************************************************************************************-->
-    <script>
+        
+      
+       <script>
         $(document).ready(function () {
+            
+            
+
             let timer;
             let audioFile;
             let Solution;
@@ -338,6 +340,7 @@
         /***********************************************************************************************************************************************************/
             const ajaxManager = new AJAXManager();
             const fetchAndDisplayManager = new FetchAndDisplayManager(ajaxManager);
+            //const fetchAndDisplay = new FetchAndDisplay(ajaxManager)
             
 
             fetchAndDisplayManager.discussion()
@@ -601,7 +604,6 @@
                     type: 'POST',
                     data: { task : task, audioFile: audioFile, Solution: Solution, question_id: question_id, student_id: 2, key_words: KeyWords, type: type},
                     success: function(response){
-                        console.log(response)
                         if(response.success){
                             console.log(response.message);
                             fetchAndDisplayManager.discussion()

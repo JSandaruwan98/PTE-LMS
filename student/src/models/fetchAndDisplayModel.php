@@ -1,6 +1,6 @@
 <?php
 
-class DiscussionModel
+class FetchAndDisplay
 {
     private $conn;
 
@@ -11,9 +11,9 @@ class DiscussionModel
     
 //===============================================================================================================================================    
 
-    public function discussion($question_id){
+    public function fetchAnsweringData($question_id){
 
-        $sql = "SELECT a.mp4File,a.attempted_on, s.name FROM answering AS a, student AS s  WHERE a.question_id = $question_id AND s.student_id = a.student_id";
+        $sql = "SELECT a.*, q.solution, s.name FROM answering AS a, student AS s, question AS q  WHERE a.question_id = $question_id AND s.student_id = a.student_id AND q.question_id = a.question_id";
         $result = $this->conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
@@ -26,7 +26,7 @@ class DiscussionModel
 
 //===============================================================================================================================================
 
-   
+    
 
 
 //===============================================================================================================================================

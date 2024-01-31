@@ -34,6 +34,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $result = $sentence_compare->compareSentences($Solution, $voice);
 
+        
+
         $serialized_additional_words = serialize($result['additional_words']);
         $serialized_missed_words = serialize($result['missed_words']);
 
@@ -41,6 +43,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $word_set_2 = implode(', ', $result['missed_words']);
 
         $count =  count($result['additional_words']);
+
+        $response = $word_set_2;
 
         
         $content = 0;

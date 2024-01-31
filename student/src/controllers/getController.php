@@ -1,11 +1,11 @@
 <?php
 include '../models/examSpaceModel.php';
 include '../config/database.php';
-include '../models/discussionModel.php';
+include '../models/fetchAndDisplayModel.php';
 
 
 $examSpace = new ExamSpaceModel($conn);
-$discussion = new DiscussionModel($conn);
+$fetchAndDisplay = new FetchAndDisplay($conn);
 
 
 if (isset($_GET['data_type'])) {
@@ -20,11 +20,18 @@ if (isset($_GET['data_type'])) {
 
         $data = $examSpace->questionDisplay($perPage, $offset, $test_id, $type);
 
-    }elseif ($data_type === 'discussion') {
+    }elseif ($data_type === 'fetchAndDisplay') {
 
         $question_id = $_GET['question_id'];
 
-        $data = $discussion->discussion($question_id);
+        if(isset($_GET['answer_id'])){
+            $answer_id = $_GET['answer_id'];
+            $data = $fetchAndDisplay->fetchAnsweringEachData($question_id, $answer_id);
+        }else{
+            $data = $fetchAndDisplay->fetchAnsweringData($question_id);
+        }
+
+        
 
     }
 
