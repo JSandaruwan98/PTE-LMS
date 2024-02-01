@@ -3,8 +3,9 @@ class FetchAndDisplayManager{
         this.ajaxManager = ajaxManager
     }
 
-    discussion(){
-        this.ajaxManager.fetchData('data_type=fetchAndDisplay&question_id=71', function (data) {
+    discussion(question_id){
+        console.log(question_id)
+        this.ajaxManager.fetchData('data_type=fetchAndDisplay&question_id='+question_id, function (data) {
             $('#tab3').empty();
             for (var i = 0; i < data.length; i++) {
                 $('#tab3').append(`
@@ -101,13 +102,11 @@ class FetchAndDisplayManager{
                 }
             });
         }, function (error) {
+            $('#tab3').empty();
             console.error('Error fetching data:', error);
         });
      
     }
 
-    question(){
-        
-    }
 
 }
