@@ -77,7 +77,9 @@
                                 <div class="row">
                                     <div class="col-2"></div>
                                     <div class="col-7">
-                                        <div id="solution" style="text-align: justify; color: #222; margin-top: 25px; padding-left: 30px; padding-right: 30px;"></div>
+                                        <div id="solution" style="text-align: justify; color: #222; margin-top: 25px; padding-left: 30px; padding-right: 30px;">
+                                            
+                                        </div>
                                     </div>
                                     <div class="col-2 ms-5" style="text-align: cente;">
                                         <div data-role="controls">
@@ -297,7 +299,6 @@
         <h1></h1>
     </section>
 
-   <script src="js/practiceExamBoard/timer.js"></script>     
 
    <script>
 
@@ -332,21 +333,29 @@
 
 
             const toggleRecordingButton = $('#recordButton');
+            var progressBar = document.getElementById('myProgressBar');
+            const audioPlayer = $('#audioPlayer');
+            
 
         /***********************************************************************************************************************************************************/
             
             var currentPage = 1;
             var questionsPerPage = 1;
+            let question_id;
 
             function fetchAndDisplayQuestions(page){
-                
                 $.ajax({
                     url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${11}&type=${type}`,
                     method: 'GET',
                     success: function (data) {
-                        resetTimer(2)
+                        if(typeValue === 1){
+                            resetTimer(2)
+                            startTimer(2)
+                        }else if(typeValue === 2){
+                            resetTimer(3)
+                            startTimer(3)
+                        }
                         isRecording = false;
-                        startTimer(2)
                         $('#title').empty();
                         $('#Question').empty();
                         $('#solution').empty();
@@ -358,21 +367,23 @@
                             question_id = data['data'][i].question_id;
 
                             $('#title').append(`<h2 style="color: white;">${data['data'][i].question}</h2>`);
-                            if(type == "Read Aloud"){
+                            if(typeValue === 1){
                                 $('#solution').append(`<p>${data['data'][i].solution}</p>`);
-                            }else if(type == "Describe image"){
+                            }else if(typeValue === 3){
                                 try{
                                     $('#solution').append(`<img src="${data['data'][i].imageFile}" style="width:450px; padding-left: 25%; height: 250px">`);
                                 }catch(error){
                                     console.log(error.message)
                                 }
-                            }else if(type == "Repeat Sentence" || type == "Re-tell Lecture" || type == "Answer Short Question"){
+                            }else if(typeValue === 2 || typeValue === 4 || typeValue === 5){
+                                console.log(type)
                                 $('#solution').append(`
-                                    <audio controls style="padding-left: 25%">
+                                    <audio id = "questionAudio" controls style="width: 400px; margin: 50px">
                                         <source src="${data['data'][i].audio}" type="audio/mpeg">
                                         Your browser does not support the audio element.
                                     </audio>`);
                             }
+                            
                         }
                         function updatePagination() {
                             $("#currentPage").text(currentPage);
@@ -381,6 +392,9 @@
                         }
                         updatePagination()
                         discussion(question_id)
+                        
+
+                        
                     },
                         error: function () {
                             alert('Error fetching data.');
@@ -396,8 +410,8 @@
                 if (currentPage > 1) {
                     currentPage--;
                     fetchAndDisplayQuestions(currentPage);
-                    resetTimer();
-                    resetTimer();
+                    resetTimer(1);
+                    resetTimer(2);
                 }
             });
         
@@ -406,14 +420,19 @@
                 if (currentPage < totalPages) {
                     currentPage++;
                     fetchAndDisplayQuestions(currentPage);
-                    resetTimer();
-                    resetTimer();
+                    resetTimer(1);
+                    resetTimer(2);
                 }
             });
 
-
+            
         /***********************************************************************************************************************************************************/
     
+            let seconds1 = 0;
+            let seconds2 = 35;
+            let seconds3 = 5;
+            let minutes = 0;
+            let hours = 0;
 
             function startTimer(task) {
                 timer = setInterval(function(){updateTimer(task)}, 1000);
@@ -432,6 +451,8 @@
                     progressBar.style.width = 0+'%'
                 }else if(task == 2){
                     seconds2 = 35;
+                }else if(task == 3){
+                    seconds3 = 5;
                 }
                 minutes = 0;
                 hours = 0;
@@ -441,30 +462,30 @@
             function updateTimer(task) {
                 if(task==2){
                     seconds2--;
-                    if (seconds2 === 0) {
+                    if (seconds2 === 30) {
                         clearInterval(timer);
-                        toggleRecordingButton.click();                        
+                        toggleRecordingButton.click();  
                     }
+                    
+                }else if(task==3){
+                    seconds3--;
+                    if (seconds3 === 0) {
+                        clearInterval(timer);
+                        toggleRecordingButton.click();  
+                    }
+                    
                 }else if(task==1){
                     //this is progress increasing
                     var currentWidth = parseFloat(progressBar.style.width, 10);
                     var newWidth = (currentWidth + 2.5) % 101; 
                     progressBar.style.width = newWidth + '%';
+                                         
+
 
                     seconds1++;
                     if (seconds1 === 40) {
                         clearInterval(timer);
                         toggleRecordingButton.click();
-                    }
-                }else if(task==3){
-                    seconds1++;
-                    if (seconds1 === 60) {
-                    seconds1 = 0;
-                    minutes++;
-                    if (minutes === 60) {
-                        minutes = 0;
-                        hours++;
-                    }
                     }
                 }
                 updateTimerDisplay(task);
@@ -476,6 +497,9 @@
                     $("#timer").text(formattedTime);
                 }else if(task==2){
                     const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds2)}`;
+                    $("#prepair-timer").text(formattedTime);
+                }else if(task==3){
+                    const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds3)}`;
                     $("#prepair-timer").text(formattedTime);
                 }
             }
@@ -568,6 +592,10 @@
                             </div>
                             `);
                         }
+
+        /***********************************************************************************************************************************************************/                
+
+
                         $('.score_info').click(function (e) {
 
                             var content = $(this).data('content');
@@ -629,16 +657,165 @@
                         });
                     },
                     error: function(){
-                        alert('Error fetching data.');
+                        $('#tab3').empty();
                     }
                 })
             }
 
+        /***********************************************************************************************************************************************************/    
+            
+        function playAudio() {
+            var questionAudio = $('#questionAudio')[0];
+
+            if (questionAudio) {
+                questionAudio.removeEventListener('loadedmetadata', handleMetadataLoaded);
+                questionAudio.addEventListener('loadedmetadata', handleMetadataLoaded);
+
+                if (questionAudio.readyState >= 2) {
+                questionAudio.dispatchEvent(new Event('loadedmetadata'));
+                }
+
+                questionAudio.play();
+            } else {
+                console.error("Audio element not found");
+            }
+            }
+
+            function handleMetadataLoaded() {
+            var duration = $('#questionAudio')[0].duration;
+            console.log("Audio duration: " + duration + " seconds");
 
             
+            setTimeout(function () {
+                startTimer(1)//--> start the recording timer
+                startRecording();
+                console.log("start")
+            }, duration * 1000);
+        }
+        /***********************************************************************************************************************************************************/    
+            
+            toggleRecordingButton.on('click', function () {
+                if (!isRecording) {
+                    //repeat sentence --> prepair time --> play a audio --> start the recording
+                    if(typeValue === 2){
+                        playAudio()//-->play audio
+                    }
+                    //read aloud qestion --> prepair time --> start the rcording
+                    else{
+                        startTimer(1)//--> recording timer
+                        startRecording();
+                    }
+                    console.log("start")
+                    toggleRecordingButton.text('Stop Recording');
+                } else {
+                    stopTimer()
+                    stopRecording();
+                    console.log("stop")
+                    toggleRecordingButton.text('Start Recording');
+                }
+                isRecording = !isRecording;
+            });
 
+        /***********************************************************************************************************************************************************/    
+
+            let audioChunks = [];
+
+            function startRecording() {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function (stream) {
+                        mediaRecorder = new MediaRecorder(stream);
+
+                        mediaRecorder.ondataavailable = function (event) {
+                            if (event.data.size > 0) {
+                                audioChunks.push(event.data);
+                            }
+                        };
+
+                        mediaRecorder.onstop = function () {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                            const audioUrl = URL.createObjectURL(audioBlob);
+                            audioPlayer.attr('src', audioUrl);
+                            console.log(audioUrl)
+                            const formData = new FormData();
+                            formData.append('audio', audioBlob, 'recording.wav');
+                            formData.append('task','save_audio');
+
+                            // Send the recorded audio to the server using $.ajax or $.post
+                            saveAudio(formData);
+
+                            audioChunks = [];
+                        };
+
+                        mediaRecorder.start();
+                        toggleRecordingButton.prop('disabled', false);
+                    })
+                    .catch(function (error) {
+                        console.error('Error accessing microphone:', error);
+                    });
+            }
    
+        /***********************************************************************************************************************************************************/    
 
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                }
+            }
+
+        /***********************************************************************************************************************************************************/    
+
+            function saveAudio(formData) {
+                // Send the recorded audio data to the server using $.ajax or $.post
+                $.ajax({
+                    url: 'src/controllers/postController.php',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log('Audio saved successfully:');
+                        console.log(response.audioFile1);
+                        console.log(response.audioFile2);
+                        console.log(response)
+                        audioFile = response.audioFile1;
+                    },
+                    error: function (error) {
+                        console.error('Error saving audio:', error);
+                    }
+                });
+            }
+
+        /***********************************************************************************************************************************************************/    
+
+            $('#submit').on('click', function(){
+                console.log(type);
+                console.log(KeyWords);
+                if(type == 'Read Aloud' || type == 'Repeat Sentence'){
+                    task = 'normal_comparison'
+                }else if(type == 'Describe image' || type == 'Repeat Sentence' || type == 'Answer Short Question'){
+                    task = 'ai_analysis'
+                }
+
+                $.ajax({
+                    url:'src/controllers/postController.php',
+                    type: 'POST',
+                    data: { task : task, audioFile: audioFile, Solution: Solution, question_id: question_id, student_id: 2, key_words: KeyWords, type: type},
+                    success: function(response){
+                        if(response.success){
+                            console.log(response.message);
+                            discussion(question_id)
+                        }else{
+                            console.log(response.message);
+                            
+                        }
+                    },
+                    error: function (error) {
+                        console.log(response.message);
+                        console.log(response.comment);
+                        console.error('Error saving audio:', error); 
+                    }
+                })
+            });
 
         })   
     </script>

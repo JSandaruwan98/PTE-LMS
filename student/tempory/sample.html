@@ -1,91 +1,53 @@
-<div id="cb" class="content-popup">
-    <div class="container">
-        <div class="row">
-            <div style="text-align: left; font-weight: 300;">Score Info</div>
-        </div>
-        <div class="row mx-3">
-            <div class="col-5 py-3">
-                <div class="row px-2">
-                    <div class="p-2">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div style="font-weight: 300;">Total</div>
-                    </div>     
-                </div>
-                <div class="row px-2">
-                    <div class="col-4 p-1">
-                        <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                            <span>Content</span><br><span style="color: green;"><span id="content-marks"></span>/90</span>
-                        </div>
-                    </div>
-                    <div class="col-4 p-1">
-                        <div  class="p-2" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                            <span>Pronoun</span><br><span style="color: rgb(255, 162, 0);"><span id="pronoun-marks"></span>/90</span>
-                        </div>
-                    </div>
-                    <div class="col-4 p-1">
-                        <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                            <span>Fluency</span><br><span style="color: purple;"><span id="fluency-marks"></span>/90</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row px-2">
-                    <div class="p-2"></div><h4 class="h6" style="text-align: left;">Skill Analysis</h4>
-                    <p class="lh-sm" style="font-weight: 500; font-size: 10px; text-align:justify">The following scores show how you have performed in different aspects as compared to other users. These scores can be used to analyse how you can improve in this question, but they are not directly related to the PTE scores.</p>
-                </div>
-                <div class="row">
-                    <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                        <div>
-                            <div class="progress mt-1">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">20%</div>
-                            </div>
-                            <h4 class="h6" style="font-size: 10px; text-align: right;">Pronounciation Accuracy</h4>
-                        </div>
-                        <div>
-                            <div class="progress mt-1">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">20%</div>
-                            </div>
-                            <h4 class="h6" style="font-size: 10px; text-align: right;">Fluent</h4>
-                        </div>
-                        <div>
-                            <div class="progress mt-1">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">20%</div>
-                            </div>
-                            <h4 class="h6" style="font-size: 10px; text-align: right;">Stress</h4>
-                        </div>
-                        <div>
-                            <div class="progress mt-1">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">20%</div>
-                            </div>
-                            <h4 class="h6" style="font-size: 10px; text-align: right;">Speed</h4>
-                        </div>
-                    </div>
-                        
-                    
-                </div>
-                
-            </div>
-            <div class="col-7 ps-5">
-                <div class="row">
-                    <div class="py-4" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                        <audio id="user-answer-recording" controls style="width: 300px;">
-                        </audio>
-                    </div>
-                </div>
-                <div class="row px-2">
-                    <div class="p-2"></div><h4 class="h6" style="text-align: left;">Content</h4>
-                    <p style="font-weight: 300; font-size: 14px; text-align:justify">
-                        <span>Missed words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span></span>
-                        <span style="margin-left: 40px;">Aditional words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span>
-                    </p>
-                </div>
-                <div class="row">
-                    <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                        <p id="question-solution"  style="font-weight: 500; font-size: 15px; text-align:justify"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Duration Example</title>
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+  <audio id="questionAudio" controls>
+    <source src="../rs-11.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+  <button onclick="playAudio()">Play Audio</button>
+  <span id="durationDisplay">Duration: </span>
+  <p id="helloText"></p>
+
+  <script>
+    function playAudio() {
+      var questionAudio = $('#questionAudio')[0];
+
+      if (questionAudio) {
+        questionAudio.removeEventListener('loadedmetadata', handleMetadataLoaded);
+        questionAudio.addEventListener('loadedmetadata', handleMetadataLoaded);
+
+        if (questionAudio.readyState >= 2) {
+          questionAudio.dispatchEvent(new Event('loadedmetadata'));
+        }
+
+        questionAudio.play();
+      } else {
+        console.error("Audio element not found");
+      }
+    }
+
+    function handleMetadataLoaded() {
+      var duration = $('#questionAudio')[0].duration;
+      console.log("Audio duration: " + duration + " seconds");
+
+      
+      setTimeout(function () {
+        $('#helloText').text("Hello janitha");
+      }, duration * 1000);
+    }
+  </script>
+
+</body>
+
+</html>
