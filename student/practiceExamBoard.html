@@ -199,7 +199,7 @@
                         <div class="row mx-3">
                             <div class="col-5 py-3">
                                 <!--using progress bar display for the total score-->
-                                <div class="row px-2">
+                                <div id="total" class="row px-2" style="cursor: pointer;">
                                     <div class="p-2">
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
@@ -211,59 +211,85 @@
                                 <!--content, pronounciation and fluency score-->
                                 <div class="row px-2">
                                     <div class="col-4 p-1">
-                                        <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Content</span><br><span style="color: green;"><span id="content-marks"></span>/5</span>
+                                        <div  id="content" class="p-2"  style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px; cursor: pointer;">
+                                            <span>Content</span><br><span id="content-score" class="green-text"><span id="content-marks"></span>/5</span>
                                         </div>
                                     </div>
                                     <div class="col-4 p-1">
-                                        <div  class="p-2" style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Pronoun</span><br><span style="color: rgb(255, 162, 0);"><span id="pronoun-marks"></span>/5</span>
+                                        <div id="pronoun"  class="p-2" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px; cursor: pointer;">
+                                            <span>Pronoun</span><br><span id="pronoun-score" class="yellow-text"><span id="pronoun-marks"></span>/5</span>
                                         </div>
                                     </div>
                                     <div class="col-4 p-1">
+                                        <div id="fluency" class="p-2"  style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px; cursor: pointer;">
+                                            <span>Fluency</span><br><span id="fluency-score" class="purple-text"><span id="fluency-marks"></span>/5</span>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                
+                                <div class="togel-section1">
+                                    
+                                    <div class="row px-2">
+                                        <div class="p-2"></div><h4 class="h6" style="text-align: left;">Skill Analysis</h4>
+                                        <p class="lh-sm" style="font-weight: 500; font-size: 10px; text-align:justify">The following scores show how you have performed in different aspects as compared to other users. These scores can be used to analyse how you can improve in this question, but they are not directly related to the PTE scores.</p>
+                                    </div>
+    
+                                    <!--Each presentation is described using a progress bar of pronunciation, fluency, stress and speed-->
+                                    <div class="row">
                                         <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                            <span>Fluency</span><br><span style="color: purple;"><span id="fluency-marks"></span>/5</span>
+                                            <div>
+                                                <div class="progress mt-1">
+                                                    <div id="pronoun-progress" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Pronounciation Accuracy</span> <span id="pronoun-precentage"  class="text-primary"></span></h4>
+                                            </div>
+                                            <div>
+                                                <div class="progress mt-1">
+                                                    <div id="fluent-progress" class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Fluent</span> <span id="fluent-precentage" class="text-primary"></span></h4>
+                                            </div>
+                                            <div>
+                                                <div class="progress mt-1">
+                                                    <div id="stress-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Stress</span> <span class="text-primary">0%</span></h4>
+                                            </div>
+                                            <div>
+                                                <div class="progress mt-1">
+                                                    <div id="speed-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Speed</span> <span class="text-primary">0%</span></h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <div class="row px-2">
-                                    <div class="p-2"></div><h4 class="h6" style="text-align: left;">Skill Analysis</h4>
-                                    <p class="lh-sm" style="font-weight: 500; font-size: 10px; text-align:justify">The following scores show how you have performed in different aspects as compared to other users. These scores can be used to analyse how you can improve in this question, but they are not directly related to the PTE scores.</p>
-                                </div>
-
-                                <!--Each presentation is described using a progress bar of pronunciation, fluency, stress and speed-->
-                                <div class="row">
-                                    <div class="p-2"  style="background-color: white; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="pronoun-progress" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Pronounciation Accuracy</span> <span id="pronoun-precentage"  class="text-primary"></span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="fluent-progress" class="progress-bar" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Fluent</span> <span id="fluent-precentage" class="text-primary"></span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="stress-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Stress</span> <span class="text-primary">0%</span></h4>
-                                        </div>
-                                        <div>
-                                            <div class="progress mt-1">
-                                                <div id="speed-progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <h4 class="h6" style="font-size: 10px; text-align: right;"><span style="float: left;">Speed</span> <span class="text-primary">0%</span></h4>
-                                        </div>
+                                <div class="togel-section2" style="display: none;">
+                                    
+                                    <div class="row px-2"  style="text-align: left;">
+                                        <div class="p-2"></div><h4 class="h6">Suggestion</h4>
+                                        <p id="suggestion-head" class="lh-sm" style="font-weight: 500; font-size: 10px;"></p>
+                                        <ol id="suggestion-content" style="font-weight: 300; text-align: justify; line-height: 1; font-size: 10px; list-style-type: decimal; margin-left: 10px;">
+                                            
+                                        </ol>                                    
                                     </div>
+
                                 </div>
+                                <div class="togel-section3" style="display: none;">
+                                    
+                                    <div class="row px-2">
+                                        <div class="p-2"></div><h4 class="h6" style="text-align: left;">Suggestion</h4>
+                                        <p class="lh-sm" style="font-weight: 500; font-size: 10px;">A low score in pronunciation may be caused by:</p>
+                                        <ol style="font-weight: 300; text-align: justify; line-height: 1; font-size: 10px; list-style-type: decimal; margin-left: 10px;">
+                                            
+                                        </ol>                                    
+                                    </div>
+
+                                </div>
+                                
                             </div>
-
+                            <script></script>
 
                             <div class="col-7 ps-5">
                                 <!--student answer audio-->
@@ -278,8 +304,8 @@
                                 <div class="row px-2">
                                     <div class="p-2"></div><h4 class="h6" style="text-align: left;">Content</h4>
                                     <p style="font-weight: 300; font-size: 14px; text-align:justify">
-                                        <span>Missed words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span></span>
-                                        <span style="margin-left: 40px;">Aditional words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span>
+                                        <span id="missed-words" style="cursor: pointer;">Missed words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span></span>
+                                        <span id="additional-words" style="margin-left: 40px; cursor: pointer;">Aditional words<span style="margin-left: 15px; height: 13px; width: 13px; background-color: #b80707; border-radius: 50%; display: inline-block;"></span>
                                     </p>
                                 </div>
                                 <div class="row">
@@ -292,23 +318,60 @@
                     </div> 
                 </div>
             </div>
+            
         </div>
+        
 
     </section>
     <section id="sub-discussion" style="margin-left: 80px; margin-top: 30px;">
         <h1></h1>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!--<script>
+        $(document).ready(function() {
+            $('.togel-section2').hide();
+            $('.togel-section3').hide();
 
+            $('#content').on("click", function(){
+                $('.togel-section3').hide();
+                $('.togel-section2, .togel-section1').toggle();
+                $('#content-score').toggleClass('white-text');
+                $('#content').toggleClass('blue-background');
+                $('#pronoun, #fluency').removeClass('blue-background');
+                $('#pronoun-score, #fluency-score').removeClass('white-text');
+            });
+            $('#pronoun').on("click", function(e){
+                $('.togel-section2').hide();
+                $('.togel-section3, .togel-section1').toggle();
+                $('#pronoun-score').toggleClass('white-text');
+                $('#pronoun').toggleClass('blue-background');
+                $('#content, #fluency').removeClass('blue-background');
+                $('#content-score, #fluency-score').removeClass('white-text');
+            });
+            $('#fluency').on("click", function(e){
+                e.preventDefault();
+                $('#b2-fluency').toggle();
+                $('#fluency-score').toggleClass('white-text');
+                $('#fluency').toggleClass('blue-background');
+                $('#b2-content, #b2-pronoun').hide();                
+                $('#content, #pronoun').removeClass('blue-background');
+                $('#content-score, #pronoun-score').removeClass('white-text');
+                $('.togel-section2').css('display','none')
+            });
+        });
+        
+    </script>-->
 
    <script>
 
         $(document).ready(function () {
+
+            //get the type of exam passed from top nav bar
             var fragment = window.location.hash;
             if (fragment.includes('type')) { var typeValue = parseInt(fragment.split('=')[1]); } 
             else { console.log('Type parameter not found in the URL.'); }
 
-            console.log(typeValue);
-
+            //assigned the type name and image
             if(typeValue == 1){
                 type = 'Read Aloud';
                 image = 'images/img/78c8b120464e6b53b3877ad0de114ad3.jpg';
@@ -326,23 +389,26 @@
                 image = 'images/img/slider3.png';        
             }
 
-            console.log(type);
-
+            
+            //display the type name and banner image
             $('#type_name').text(type);
             $('#home').css({'background': 'url('+image+') right'})
 
 
+            //assign the recording button, recording-time-progressbar and audio clip
             const toggleRecordingButton = $('#recordButton');
             var progressBar = document.getElementById('myProgressBar');
             const audioPlayer = $('#audioPlayer');
             
 
-        /***********************************************************************************************************************************************************/
+        /*******Question fetch and displa section****************************************************************************************************************************************************/
             
+            //assign the page values
             var currentPage = 1;
             var questionsPerPage = 1;
             let question_id;
 
+            //Question fetch and display function
             function fetchAndDisplayQuestions(page){
                 $.ajax({
                     url: `src/controllers/getController.php?data_type=questionDisplay&page=${page}&per_page=${questionsPerPage}&test_id=${11}&type=${type}`,
@@ -351,9 +417,12 @@
                         if(typeValue === 1){
                             resetTimer(2)
                             startTimer(2)
-                        }else if(typeValue === 2){
+                        }else if(typeValue === 2 || typeValue === 4 || typeValue === 5){
                             resetTimer(3)
                             startTimer(3)
+                        }else if(typeValue === 3){
+                            resetTimer(4)
+                            startTimer(4)
                         }
                         isRecording = false;
                         $('#title').empty();
@@ -412,6 +481,8 @@
                     fetchAndDisplayQuestions(currentPage);
                     resetTimer(1);
                     resetTimer(2);
+                    resetTimer(3);
+                    resetTimer(4);
                 }
             });
         
@@ -422,15 +493,20 @@
                     fetchAndDisplayQuestions(currentPage);
                     resetTimer(1);
                     resetTimer(2);
+                    resetTimer(3);
+                    resetTimer(4);
+
                 }
             });
 
             
-        /***********************************************************************************************************************************************************/
+        /******timer section*****************************************************************************************************************************************************/
     
+            //assign the variables of time
             let seconds1 = 0;
             let seconds2 = 35;
             let seconds3 = 5;
+            let seconds4 = 25;
             let minutes = 0;
             let hours = 0;
 
@@ -453,6 +529,8 @@
                     seconds2 = 35;
                 }else if(task == 3){
                     seconds3 = 5;
+                }else if(task == 4){
+                    seconds4 = 25;
                 }
                 minutes = 0;
                 hours = 0;
@@ -462,7 +540,7 @@
             function updateTimer(task) {
                 if(task==2){
                     seconds2--;
-                    if (seconds2 === 30) {
+                    if (seconds2 === 0) {
                         clearInterval(timer);
                         toggleRecordingButton.click();  
                     }
@@ -470,6 +548,13 @@
                 }else if(task==3){
                     seconds3--;
                     if (seconds3 === 0) {
+                        clearInterval(timer);
+                        toggleRecordingButton.click();  
+                    }
+                    
+                }else if(task==4){
+                    seconds4--;
+                    if (seconds4 === 0) {
                         clearInterval(timer);
                         toggleRecordingButton.click();  
                     }
@@ -501,6 +586,9 @@
                 }else if(task==3){
                     const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds3)}`;
                     $("#prepair-timer").text(formattedTime);
+                }else if(task==4){
+                    const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds4)}`;
+                    $("#prepair-timer").text(formattedTime);
                 }
             }
 
@@ -508,7 +596,7 @@
                 return value < 10 ? `0${value}` : value;
             }
 
-    /***********************************************************************************************************************************************************/
+    /********Discussion tab section***************************************************************************************************************************************************/
 
             $(document).ready(function() {
                 // Show default tab content
@@ -526,31 +614,10 @@
             });
 
 
-    /***********************************************************************************************************************************************************/
-           
-            /**$(document).ready(function() {
-                $('#score').on("click", function(){
-                    $('#overlay-content-popup').toggle();
-                    $('#cb').toggle();
-                });
-
-                $('#close-btn').on("click", function(){
-                    $('#overlay-content-popup').hide();
-                    $('#cb').hide();
-                });
-
-                $(document).on("click", function(event){
-                    if(!$(event.target).closest('#score').length && !$(event.target).closest('#cb').length) {
-                        $('#overlay-content-popup').hide();
-                        $('#cb').hide();
-                    }
-                });
-            });**/
-
-    /***********************************************************************************************************************************************************/
+    /*********Discussion Section**************************************************************************************************************************************************/
 
 
-
+            //user answer fetch and display function
             function discussion(question_id){
                 $.ajax({
                     url: 'src/controllers/getController.php?data_type=fetchAndDisplay&question_id='+question_id,
@@ -582,7 +649,8 @@
                                                     data-additional="`+data[i].additional_words+`"
                                                     data-missed="`+data[i].missed_words+`"
                                                     data-audio="`+data[i].mp4File+`"
-                                                    data-solution= "`+data[i].solution+`"
+                                                    data-solution= "`+data[i].solution+`",
+                                                    data-user_answer= "`+data[i].userAnswer+`"
                                                 >Score Info</div>
                                                 </div>
                                             </div>
@@ -593,9 +661,9 @@
                             `);
                         }
 
-        /***********************************************************************************************************************************************************/                
+        /*********Score Section**************************************************************************************************************************************************/                
 
-
+                        
                         $('.score_info').click(function (e) {
 
                             var content = $(this).data('content');
@@ -606,6 +674,7 @@
                             var missed = $(this).data('missed');
                             var audio = $(this).data('audio');
                             var solution = $(this).data('solution')
+                            var user_answer = $(this).data('user_answer')
                             var audioDiv = $('#user-answer-recording')
 
 
@@ -617,7 +686,7 @@
                             $('#content-marks').text(content)
                             $('#pronoun-marks').text(pronounciation)
                             $('#fluency-marks').text(oral_fluency)
-                            var paragraph = $('#question-solution').text(solution)
+                            
 
 
 
@@ -632,12 +701,103 @@
 
                             console.log(content+pronounciation+oral_fluency)
 
-                            var word_set = missed.split(/[ ,.:]+/).filter(Boolean)
+                            var paragraph = $('#question-solution').text(solution)
+                            $('#missed-words').css('color', '')
+                            $('#additional-words').css('color', '')
 
-                            $.each(word_set, function(index, word) {
-                                var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Use word boundaries and case-insensitive matching
-                                paragraph.html(paragraph.html().replace(regex, '<span class="highlight" style="color: #b80707;">' + word + '</span>'));
-                            });
+
+                            $('#missed-words').on("click", function(){
+                                var paragraph = $('#question-solution').text(solution)
+                                $('#missed-words').css('color', '#0D6EFD')
+                                $('#additional-words').css('color', '')
+                                var word_set = missed.split(/[ ,.:]+/).filter(Boolean)
+
+                                $.each(word_set, function(index, word) {
+                                    var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Use word boundaries and case-insensitive matching
+                                    paragraph.html(paragraph.html().replace(regex, '<span class="highlight" style="color: #b80707;">' + word + '</span>'));
+                                });
+                            })
+
+                            $('#additional-words').on("click", function(){
+                                var paragraph = $('#question-solution').text(user_answer)
+                                $('#missed-words').css('color', '')
+                                $('#additional-words').css('color', '#0D6EFD')
+                                var word_set = additional.split(/[ ,.:]+/).filter(Boolean)
+
+                                $.each(word_set, function(index, word) {
+                                    var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Use word boundaries and case-insensitive matching
+                                    paragraph.html(paragraph.html().replace(regex, '<span class="highlight" style="color: #b80707;">' + word + '</span>'));
+                                });
+                            })
+
+                            //clicking total score
+                            $('#total').on("click", function(){
+                                $('.togel-section1').show()
+                                $('.togel-section2').hide()
+                                $('#content, #pronoun, #fluency').removeClass('blue-background');
+                                $('#content-score, #pronoun-score, #fluency-score').removeClass('white-text');
+                            })
+
+                            //clicking content score
+                            $('#content').on("click", function(){
+                                $('.togel-section2').show()
+                                $('.togel-section1').hide()
+                                $('#content-score').addClass('white-text');
+                                $('#content').addClass('blue-background');
+                                $('#pronoun, #fluency').removeClass('blue-background');
+                                $('#pronoun-score, #fluency-score').removeClass('white-text');
+                                
+                                if(typeValue === 1){
+                                    if(content > 3){
+                                        $('#suggestion-head').text("Great content score!")
+                                    }else{
+                                        $('#suggestion-head').text("The content score of RA is also influenced by pronunciation Bad pronunciation will cause trouble in recognizing spoken words.")
+                                    }
+                                }else if(typeValue === 2){
+                                    console.log(type)
+                                    if(content > 3){
+                                        $('#suggestion-head').text("Great content score!")
+                                    }else{
+                                        $('#suggestion-head').text("Too few words are repeated. Try to aim for at least 4")
+                                    }
+                                }else if(typeValue === 3){
+                                    console.log(type)
+                                    if(content > 3){
+                                        $('#suggestion-head').text("Good content. Keep up!")
+                                    }else{
+                                        $('#suggestion-head').text("A good answer of DI will have: picture info, comparison and conclusion.")
+                                    }
+                                }else if(typeValue === 4){
+                                    console.log(type)
+                                    if(content > 3){
+                                        $('#suggestion-head').text("Good content. Keep up!")
+                                    }else{
+                                        $('#suggestion-head').text("Try to capture more key points from the speech")
+                                    }
+                                }else if(typeValue === 5){
+                                    console.log(type)
+                                    if(content === 1){
+                                        $('#suggestion-head').text("Correct!")
+                                    }else{
+                                        $('#suggestion-head').text("Inaccurate pronunciation could also result in loss of marks.")
+                                    }
+                                }
+                                
+                                
+                            })
+
+                            //clicking pronoun score
+                            $('#pronoun').on("click", function(){
+                                $('.togel-section2').show()
+                                $('.togel-section1').hide()
+                                $('#pronoun-score').addClass('white-text');
+                                $('#pronoun').addClass('blue-background');
+                                $('#content, #fluency').removeClass('blue-background');
+                                $('#content-score, #fluency-score').removeClass('white-text');
+                                $('#suggestion-head').text("To ensure a good score in pronunciation, you need:")
+                            })
+
+                            
 
 
                         });
@@ -649,10 +809,13 @@
                         });
                     
                         $(document).on("click", function(event){
-                            if(!$(event.target).closest('#score').length && !$(event.target).closest('#cb').length) {
+                            if(!$(event.target).closest('#score').length && !$(event.target).closest('#cb').length && !$(event.target).closest('.b2').length) {
                                 $('.b1').css('display','none')
                                 $('#overlay-content-popup').hide();
                                 $('#cb').hide();
+                                $('.togel-section2, .togel-section3').hide()
+                                $('#content, #pronoun, #fluency').removeClass('blue-background');
+                                $('#content-score, #pronoun-score, #fluency-score').removeClass('white-text');                                $('.togel-section1').show()
                             }
                         });
                     },
@@ -696,8 +859,9 @@
             
             toggleRecordingButton.on('click', function () {
                 if (!isRecording) {
+                    stopTimer()
                     //repeat sentence --> prepair time --> play a audio --> start the recording
-                    if(typeValue === 2){
+                    if(typeValue === 2 || typeValue === 4 || typeValue === 5){
                         playAudio()//-->play audio
                     }
                     //read aloud qestion --> prepair time --> start the rcording
@@ -788,13 +952,13 @@
         /***********************************************************************************************************************************************************/    
 
             $('#submit').on('click', function(){
-                console.log(type);
-                console.log(KeyWords);
+        
                 if(type == 'Read Aloud' || type == 'Repeat Sentence'){
                     task = 'normal_comparison'
-                }else if(type == 'Describe image' || type == 'Repeat Sentence' || type == 'Answer Short Question'){
+                }else if(type == 'Describe Image' || type == 'Repeat Sentence' || type == 'Answer Short Question'){
                     task = 'ai_analysis'
                 }
+               console.log('Ai Scoring.........')
 
                 $.ajax({
                     url:'src/controllers/postController.php',

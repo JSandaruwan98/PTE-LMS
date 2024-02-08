@@ -43,6 +43,28 @@
     align-items: center;
     justify-content: center;
   }
+
+  .b2 {
+    display: block;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .b2 .content-popup {
+    position: fixed;
+    top: 65%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 250px;
+    background-color: #fcfafa;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
   
   .overlay-content-popup {
     position: fixed;
@@ -76,3 +98,48 @@
     right: 10px;
     cursor: pointer;
   }
+
+  .blue-background {
+    background-color: #0D6EFD;
+    color: white;
+  }
+
+
+  .missed-words-color{
+    color: #b80707;
+  }
+
+  .green-text{
+    color: green;
+  }
+
+  .yellow-text{
+    color: rgb(255, 162, 0);
+  }
+
+  .purple-text{
+    color: purple;
+  }
+
+  .white-text{
+    color: white;
+  }
+
+  #b2-pronoun{
+    font-size: 10px;
+    text-align: left;
+  }
+
+  #b2-content{
+    font-size: 10px;
+    text-align: left;
+  }
+
+  .lh-sm{
+    margin-top: 10px;
+  }
+
+  .togel-section2{
+    display: block;
+  }
+ 
